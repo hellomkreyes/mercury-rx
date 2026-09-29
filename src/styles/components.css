@@ -186,7 +186,7 @@
     color: var(--dialog-text);
     cursor: pointer;
   }
-  .tip-btn svg { inline-size: 1.25rem; }
+  .tip-btn svg { inline-size: 1.125rem; } /* 9 pixels × 2px: whole pixels, crisp edges */
   .tip-btn:hover, .tip-btn[aria-expanded='true'] { color: var(--gold); }
   .tip-text { padding: 0.5rem 0.75rem; border: 3px dashed var(--dialog-text); font-size: 1.25rem; }
 
