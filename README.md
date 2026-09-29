@@ -2,6 +2,12 @@
 
 A pixel-art Mercury retrograde tracker. Static site: Vite + vanilla TypeScript, hosted on GitHub Pages.
 
+## What makes this tracker different
+
+We show you a nerdy and close-to-accurate depiction of Earth & Mercury's orbit around our sun. There's also informative UI on how the retrograde effect happens. Data is pulled and updated from Astronomy Engine every week!
+
+The Hidden Realm also has a built in Oracle with sage wisdom and checklist items for each phase of Mercury's cycle. No miscommunications will be happening on our watch. 😤
+
 ## Incantations for the Terminal
 
 ```sh
@@ -25,8 +31,10 @@ The tracker runs TypeScript natively via type stripping.
 
 ## The Vibes Were Coded
 
-Full Disclosure: As much as I hate the term, I did in fact 💫 vibe code 💫 this retrograde tracker with Claude(tte) in Co-work mode. Here's what I did to make sure this tracker wasn't another victim of AI slop:
-1. Prompt Claudette for 3 very different initial wireframes and mockups
+Full Disclosure: As much as I hate the term, I did in fact 💫 vibe code 💫 this retrograde tracker with Claude(tte) in Co-work mode. 
+
+Here's what I did to make sure this tracker wasn't another victim of AI slop:
+1. Prompt **Claudette** for 3 different initial wireframes and finalized mockups
 2. Go through 3 rounds of design revisions and choose the strongest design
 4. Prompt Claudette to mock up all UI states, device screens, high contrast options, and double check colours are WCAG AA compliant
 5. Prompt for a written Technical Plan and read the plan to squash any assumptions made by Claudette
@@ -37,7 +45,8 @@ Full Disclosure: As much as I hate the term, I did in fact 💫 vibe code 💫 t
 ## CD Setup
 
 1. Pushes to `main` test and deploy via `.github/workflows/pages.yml` to [rx.chibimuere.com](https://rx.chibimuere.com).
-2. One-time setup: **Settings → Pages → Source: GitHub Actions**, custom domain `rx.chibimuere.com`.
+2. One-time setup: **Settings → Pages → Source: GitHub Actions**
+3. Custom domain lives at `rx.chibimuere.com`.
 
 ## Website Copy
 
@@ -47,7 +56,9 @@ Full Disclosure: As much as I hate the term, I did in fact 💫 vibe code 💫 t
 
 ## Fonts
 
-Jersey 10, Silkscreen and VT323 (SIL OFL 1.1, licenses in `public/fonts/`) are self-hosted as woff2, subset to Latin-1 plus typographic punctuation:
+Jersey 10,
+Silkscreen,
+& VT323 (SIL OFL 1.1, licenses in `public/fonts/`) are self-hosted as woff2, subset to Latin-1 plus typographic punctuation:
 
 ```sh
 pyftsubset <font>.ttf --flavor=woff2 --layout-features=kern,liga \
