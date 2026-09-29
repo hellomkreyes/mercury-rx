@@ -6,7 +6,7 @@ A pixel-art Mercury retrograde tracker. Static site: Vite + vanilla TypeScript, 
 
 ```sh
 npm install
-npm run dev        # http://localhost:5173/mercury-rx/
+npm run dev        # http://localhost:5173/
 npm test           # unit tests (node:test, no extra deps)
 npm run build      # cycles → vite build → size budget
 npm run test:e2e   # Playwright against the production build
@@ -22,4 +22,8 @@ CI rebuilds weekly, so the cycle data and the baked-in phase stay current.
 
 ## Deploy
 
-Pushes to `main` test and deploy via `.github/workflows/pages.yml`. One-time setup: **Settings → Pages → Source: GitHub Actions**.
+Pushes to `main` test and deploy via `.github/workflows/pages.yml` to [rx.chibimuere.com](https://rx.chibimuere.com). One-time setup: **Settings → Pages → Source: GitHub Actions**, custom domain `rx.chibimuere.com`.
+
+## Content
+
+All copy lives in `src/content/copy.json`. `{placeholders}` are filled by `src/view.ts`; `npm test` fails if one doesn't resolve.

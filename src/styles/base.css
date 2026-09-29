@@ -1,0 +1,31 @@
+/* Minimal, readable baseline until the full UI (PR 3). Mobile-first. */
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    line-height: 1.4;
+  }
+
+  body {
+    margin: 0 auto;
+    max-inline-size: 40rem;
+    padding: 1rem;
+  }
+
+  h1, h2 { color: var(--heading); }
+  em { color: var(--pink); font-style: normal; }
+  .phase-label { color: var(--pc); font-size: 2rem; text-transform: uppercase; }
+  footer { color: var(--footer); }
+
+  .skip {
+    position: absolute;
+    inset-block-start: -4rem;
+    padding: 0.5rem 1rem;
+    background: var(--focus);
+    color: var(--on-accent);
+  }
+  .skip:focus { inset-block-start: 0.5rem; }
+
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+}
