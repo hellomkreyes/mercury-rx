@@ -32,7 +32,7 @@
   "oracle": {
     "heed": "Heed the stars",
     "askAgain": "Ask again",
-    "back": "Back to the oracle",
+    "back": "Return to the oracle",
     "card": "Card {n} of {total}",
     "sealed": "{done} of {total} sealed",
     "whyNoResetLabel": "Why doesn't this reset?",
