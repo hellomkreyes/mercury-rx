@@ -1,6 +1,6 @@
-// Turns a PhaseState + copy into the strings every [data-slot] shows.
+// Turns a PhaseState + copy into everything the page shows: text slots, small HTML lists and CSS values.
 // Shared by the build-time bake (UTC) and the browser (visitor's local time).
-import type { Edge, Phase, PhaseState } from './phase.ts';
+import type { Cycle, Edge, Phase, PhaseState } from './phase.ts';
 import type copyJson from './content/copy.json';
 
 export type Copy = typeof copyJson;
@@ -11,6 +11,18 @@ export interface ViewOptions {
   locale?: string;
   /** Append " UTC" to dates: used by the build-time bake so no-JS readers know which zone they're seeing. */
   labelZone?: boolean;
+}
+
+export interface View {
+  phase: Phase;
+  /** Text for [data-slot="…"] elements. */
+  slots: Slots;
+  /** Escaped markup for [data-html="…"] containers (lists that vary in length). */
+  html: Record<string, string>;
+  /** Position through the shadow window, 0–1, exposed to CSS as --progress. */
+  progress: number;
+  /** Placeholder values, for filling cards and checklist items later. */
+  vars: Record<string, string | number>;
 }
 
 /** The edge each phase counts down to. */
@@ -25,6 +37,9 @@ export const COUNTDOWN_EDGE: Record<Phase, Edge> = {
 export const fill = (template: string, vars: Record<string, string | number>): string =>
   template.replace(/\{(\w+)\}/g, (match, key: string) => (key in vars ? String(vars[key]) : match));
 
+export const escapeHtml = (s: string): string =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 // 20.98 → "20°59′"
 const degrees = (lon: number): string => {
   const inSign = lon % 30;
@@ -32,35 +47,44 @@ const degrees = (lon: number): string => {
   return `${whole}°${String(Math.round((inSign - whole) * 60)).padStart(2, '0')}′`;
 };
 
-export interface View {
-  phase: Phase;
-  slots: Slots;
-  /** Placeholder values, for filling cards and checklist items later. */
-  vars: Record<string, string | number>;
+type CandleState = 'passed' | 'now' | 'next' | 'after' | 'upcoming';
+
+// Where a cycle stands relative to the current one.
+function candleState(c: Cycle, current: Cycle, phase: Phase): CandleState {
+  if (c === current) return phase === 'retrograde' ? 'now' : phase === 'postshadow' ? 'after' : 'next';
+  return Date.parse(c.stationRx) < Date.parse(current.stationRx) ? 'passed' : 'upcoming';
 }
 
-export function viewModel(now: Date, state: PhaseState, copy: Copy, { timeZone, locale = 'en', labelZone = false }: ViewOptions = {}): View {
-  const { phase, cycle, day, total, until } = state;
+export function viewModel(
+  now: Date,
+  state: PhaseState,
+  cycles: readonly Cycle[],
+  copy: Copy,
+  { timeZone, locale = 'en', labelZone = false }: ViewOptions = {},
+): View {
+  const { phase, cycle, day, total, until, progress } = state;
   const text = copy.phases[phase];
   const zone = labelZone ? ' UTC' : '';
 
-  const date = (iso: string) => new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric', timeZone }).format(new Date(iso)) + zone;
-  const dayOfMonth = (iso: string) => Number(new Intl.DateTimeFormat(locale, { day: 'numeric', timeZone }).format(new Date(iso)));
+  const format = (iso: string, options: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(locale, { ...options, timeZone }).format(new Date(iso));
+  const date = (iso: string) => format(iso, { month: 'short', day: 'numeric' }) + zone;
   const plural = new Intl.PluralRules(locale);
   const ordinal = new Intl.PluralRules(locale, { type: 'ordinal' });
-  const SUFFIX = { one: 'st', two: 'nd', few: 'rd', other: 'th' } as Record<string, string>;
+  const SUFFIX: Record<string, string> = { one: 'st', two: 'nd', few: 'rd', other: 'th' };
   const nth = (n: number) => `${n}${SUFFIX[ordinal.select(n)] ?? 'th'}`;
   const days = (n: number) => `${n} ${plural.select(n) === 'one' ? 'day' : 'days'}`;
 
+  const year = format(now.toISOString(), { year: 'numeric' });
   const countdown = until[COUNTDOWN_EDGE[phase]];
   const vars = {
     day: day ?? '',
     total: total ?? '',
     sign: cycle.sign,
+    year,
     preShadowDays: days(until.preShadow),
     preShadowDate: date(cycle.preShadow),
     stationRxDate: date(cycle.stationRx),
-    stationRxDay: nth(dayOfMonth(cycle.stationRx)),
+    stationRxDay: nth(Number(format(cycle.stationRx, { day: 'numeric' }))),
     postShadowDate: date(cycle.postShadowEnd),
   };
   const f = (template: string) => fill(template, vars);
@@ -69,13 +93,22 @@ export function viewModel(now: Date, state: PhaseState, copy: Copy, { timeZone, 
     // Static copy
     'site-title': copy.site.title,
     skip: copy.site.skip,
+    'toggles-group': copy.toggles.group,
+    'toggle-motion': copy.toggles.motion,
+    'toggle-contrast': copy.toggles.contrast,
     'status-heading': copy.status.heading,
+    'orb-heading': copy.orb.heading,
     'grimoire-heading': copy.grimoire.heading,
     'grimoire-pre': copy.grimoire.preShadow,
     'grimoire-rx': copy.grimoire.stationRx,
     'grimoire-direct': copy.grimoire.stationDirect,
     'grimoire-post': copy.grimoire.postShadowEnd,
     'grimoire-sign': copy.grimoire.sign,
+    'track-pre': copy.track.preshadow,
+    'track-rx': copy.track.retrograde,
+    'track-post': copy.track.postshadow,
+    heed: copy.oracle.heed,
+    'ask-again': copy.oracle.askAgain,
     disclaimer: copy.disclaimer.full,
     // Phase copy
     'phase-label': text.label,
@@ -85,15 +118,32 @@ export function viewModel(now: Date, state: PhaseState, copy: Copy, { timeZone, 
     'countdown-unit': plural.select(countdown) === 'one' ? text.countdown.one : text.countdown.other,
     sub: f(text.sub),
     today: date(now.toISOString()),
+    // The static orb frame shows a backslide; PR 5 makes this live with the animation.
+    'orb-status': copy.orb.backward,
     'oracle-lead': text.oracle.lead,
     'oracle-em': text.oracle.em,
     'oracle-card': f(text.oracle.cards[0] ?? ''),
+    'oracle-count': fill(copy.oracle.card, { n: 1, total: text.oracle.cards.length }),
     'checklist-title': f(text.checklist.title),
     'pre-shadow-date': date(cycle.preShadow),
     'station-rx-date': `${date(cycle.stationRx)} · ${degrees(cycle.rxLongitude)}`,
     'station-direct-date': `${date(cycle.stationDirect)} · ${degrees(cycle.directLongitude)}`,
     'post-shadow-date': date(cycle.postShadowEnd),
+    'track-pre-date': date(cycle.preShadow),
+    'track-rx-date': date(cycle.stationRx),
+    'track-post-date': `${date(cycle.stationDirect)}–${date(cycle.postShadowEnd)}`,
     sign: cycle.sign,
+    'cycles-heading': fill(copy.cycles.heading, { year }),
   };
-  return { phase, slots, vars };
+
+  // This calendar year's retrogrades, one candle each.
+  const candles = cycles
+    .filter((c) => format(c.stationRx, { year: 'numeric' }) === year)
+    .map((c) => {
+      const s = candleState(c, cycle, phase);
+      const range = `${date(c.stationRx)} – ${date(c.stationDirect)}`;
+      return `<li class="candle" data-state="${s}"><span class="candle-range">${escapeHtml(range)}</span><span class="candle-meta">${escapeHtml(`${c.sign} · ${copy.cycles[s]}`)}</span></li>`;
+    });
+
+  return { phase, slots, html: { candles: candles.join('') }, progress, vars };
 }

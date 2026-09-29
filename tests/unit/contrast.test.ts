@@ -48,6 +48,11 @@ const PAIRS: [string, string, number][] = [
   ['pc-preshadow', 'panel', 3],
   ['pc-retrograde', 'panel', 3],
   ['pc-postshadow', 'panel', 3],
+  // Orb graphics that carry meaning (WCAG 1.4.11)
+  ['earth', 'orb', 3],
+  ['mercury', 'orb', 3],
+  ['gold', 'orb', 3],
+  ['pink', 'orb', 3],
 ];
 
 for (const [name, theme] of [['default', base], ['high contrast', hc]] as const) {

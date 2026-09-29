@@ -12,7 +12,7 @@ function bakePhase(): Plugin {
     name: 'bake-phase',
     transformIndexHtml(html) {
       const now = new Date();
-      return bake(html, viewModel(now, getPhase(now, cycles.cycles, 'UTC'), copy, { timeZone: 'UTC', labelZone: true }));
+      return bake(html, viewModel(now, getPhase(now, cycles.cycles, 'UTC'), cycles.cycles, copy, { timeZone: 'UTC', labelZone: true }));
     },
   };
 }

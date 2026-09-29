@@ -1,0 +1,34 @@
+/* High contrast and forced colors. Tokens already swap in tokens.css; this strips decoration and adds outlines. */
+@layer themes {
+  [data-theme='hc'] .sky { display: none; }
+  [data-theme='hc'] .panel,
+  [data-theme='hc'] .status { box-shadow: none; outline: 3px solid var(--text); outline-offset: 0; }
+  [data-theme='hc'] .grimoire,
+  [data-theme='hc'] .cycles,
+  [data-theme='hc'] .oracle { outline: none; }
+  [data-theme='hc'] .orb-svg { outline: 3px solid var(--text); }
+  [data-theme='hc'] .ring-stars { opacity: 1; }
+  [data-theme='hc'] .toggle:hover,
+  [data-theme='hc'] .choice:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+  [data-theme='hc'] :focus-visible { outline-width: 4px; }
+
+  @media (forced-colors: active) {
+    .sky { display: none; }
+    .panel, .chip, .toggle { border: 2px solid CanvasText; }
+    .status { box-shadow: none; }
+    .seg { border-color: CanvasText; }
+    .track-marker, .chip-dot { forced-color-adjust: none; background: CanvasText; }
+    [data-phase='preshadow'] .seg[data-seg='preshadow'],
+    [data-phase='retrograde'] .seg[data-seg='retrograde'],
+    [data-phase='postshadow'] .seg[data-seg='postshadow'] { forced-color-adjust: none; background: Highlight; }
+    [data-phase='retrograde'] .seg[data-seg='preshadow'],
+    [data-phase='postshadow'] .seg[data-seg='preshadow'],
+    [data-phase='postshadow'] .seg[data-seg='retrograde'] { forced-color-adjust: none; background: GrayText; }
+    .candle::before { forced-color-adjust: none; background: linear-gradient(GrayText, GrayText) bottom / 100% 2.5rem no-repeat; }
+    .candle:is([data-state='next'], [data-state='now'], [data-state='after'])::before {
+      background:
+        linear-gradient(Highlight, Highlight) center 0 / 0.5rem 0.875rem no-repeat,
+        linear-gradient(CanvasText, CanvasText) bottom / 100% 2.5rem no-repeat;
+    }
+  }
+}

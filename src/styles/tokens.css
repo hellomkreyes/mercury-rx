@@ -26,6 +26,17 @@
     --candle-off: #8c86a8;
     --focus: #ffd479;
     --on-accent: #06030d;
+    --orb: #3a44e6;
+    --orb-shine: #9fb0ff;
+    --earth: #7ee0b0;
+    --mercury: #ffffff;
+    --wax: #8b5cf6;
+
+    /* Decoration only (no contrast requirement) */
+    --decor-border: #3a2775;
+    --pillar: #3434d8;
+    --star-a: #ff7ae0;
+    --star-b: #5b6bff;
 
     /* Phase accents; --pc is the one in use */
     --pc-direct: #7ee0b0;
@@ -59,6 +70,12 @@
     --candle-off: #ffffff;
     --focus: #ffe600;
     --on-accent: #000000;
+    --orb: #000000;
+    --orb-shine: #000000;
+    --earth: #ffffff;
+    --mercury: #ffffff;
+    --wax: #ffffff;
+    --decor-border: #ffffff;
     --pc: #ffe600;
   }
 }

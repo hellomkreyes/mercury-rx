@@ -24,6 +24,15 @@ CI rebuilds weekly, so the cycle data and the baked-in phase stay current.
 
 Pushes to `main` test and deploy via `.github/workflows/pages.yml` to [rx.chibimuere.com](https://rx.chibimuere.com). One-time setup: **Settings → Pages → Source: GitHub Actions**, custom domain `rx.chibimuere.com`.
 
+## Fonts
+
+Jersey 10, Silkscreen and VT323 (SIL OFL 1.1, licenses in `public/fonts/`) are self-hosted as woff2, subset to Latin-1 plus typographic punctuation:
+
+```sh
+pyftsubset <font>.ttf --flavor=woff2 --layout-features=kern,liga \
+  --unicodes="U+0020-007E,U+00A0-00FF,U+2013,U+2014,U+2018,U+2019,U+201C,U+201D,U+2022,U+2026,U+2032"
+```
+
 ## Content
 
 All copy lives in `src/content/copy.json`. `{placeholders}` are filled by `src/view.ts`; `npm test` fails if one doesn't resolve.

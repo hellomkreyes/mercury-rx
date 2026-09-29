@@ -24,10 +24,19 @@
     "postShadowEnd": "Post-shadow ends",
     "sign": "Sign"
   },
+  "cycles": {
+    "heading": "{year} cycles",
+    "passed": "passed",
+    "next": "next",
+    "now": "retrograde now",
+    "after": "direct again",
+    "upcoming": "upcoming"
+  },
   "orb": {
     "alt": "Crystal ball: Earth and Mercury both orbit the Sun. A line of sight from Earth through Mercury marks where Mercury appears against the stars; when Mercury laps Earth, that spot slides backward, which is retrograde motion.",
     "forward": "Appears to move forward (direct)",
-    "backward": "Appears to move backward (retrograde)"
+    "backward": "Appears to move backward (retrograde)",
+    "heading": "Scrying orb: orbit view"
   },
   "oracle": {
     "heed": "Heed the stars",
@@ -47,7 +56,10 @@
       "label": "Direct",
       "chip": "Direct · clear skies",
       "chipSub": "Pre-shadow in {preShadowDays}",
-      "countdown": { "one": "day until retrograde", "other": "days until retrograde" },
+      "countdown": {
+        "one": "day until retrograde",
+        "other": "days until retrograde"
+      },
       "sub": "Pre-shadow begins {preShadowDate}.",
       "oracle": {
         "lead": "The oracle speaks of ",
@@ -72,7 +84,10 @@
       "label": "Pre-shadow",
       "chip": "Pre-shadow",
       "chipSub": "Day {day} of {total}",
-      "countdown": { "one": "day until retrograde", "other": "days until retrograde" },
+      "countdown": {
+        "one": "day until retrograde",
+        "other": "days until retrograde"
+      },
       "sub": "Mercury is slowing over ground it will cross three times.",
       "oracle": {
         "lead": "The oracle speaks of ",
@@ -97,7 +112,10 @@
       "label": "Retrograde",
       "chip": "Retrograde now",
       "chipSub": "Day {day} of {total}",
-      "countdown": { "one": "day until direct", "other": "days until direct" },
+      "countdown": {
+        "one": "day until direct",
+        "other": "days until direct"
+      },
       "sub": "Mercury appears to walk backward through {sign}.",
       "oracle": {
         "lead": "The oracle speaks of ",
@@ -123,7 +141,10 @@
       "label": "Post-shadow",
       "chip": "Post-shadow",
       "chipSub": "Day {day} of {total}",
-      "countdown": { "one": "day until clear skies", "other": "days until clear skies" },
+      "countdown": {
+        "one": "day until clear skies",
+        "other": "days until clear skies"
+      },
       "sub": "Mercury is direct again, retracing its steps until {postShadowDate}.",
       "oracle": {
         "lead": "The oracle speaks of ",
