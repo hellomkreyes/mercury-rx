@@ -97,6 +97,8 @@
           <div class="oracle-top">
             <h2 id="checklist-heading" class="oracle-heading" tabindex="-1" data-slot="checklist-title"></h2>
             <span class="tip">
+              <!-- Shown by CSS once every box is ticked. -->
+              <span class="label quest-badge"><svg viewBox="0 0 5 5" aria-hidden="true"><path d="M2 0h1v5H2zM0 2h5v1H0z"/></svg><span data-slot="quest-badge"></span></span>
               <span class="label oracle-count" aria-live="polite" data-slot="checklist-count"></span>
               <button type="button" class="tip-btn" aria-expanded="false" aria-controls="why-tip">
                 <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M1 0h5v1H1zM0 1h1v5H0zM6 1h1v5H6zM1 6h5v1H1zM3 1h1v1H3zM3 3h1v3H3z"/></svg>
@@ -128,6 +130,9 @@
         <ul class="candles" data-html="candles"></ul>
       </section>
     </main>
+
+    <!-- Easter eggs speak here (src/egg-show.ts). -->
+    <p class="visually-hidden" aria-live="polite" data-egg-announce></p>
 
     <footer class="footer">
       <p data-slot="disclaimer"></p>

@@ -115,6 +115,7 @@ export function viewModel(
     return: copy.oracle.back,
     'why-label': copy.oracle.whyNoResetLabel,
     'why-no-reset': copy.oracle.whyNoReset,
+    'quest-badge': copy.eggs.quest.badge,
     disclaimer: copy.disclaimer.full,
     // Phase copy
     'phase-label': text.label,

@@ -3,7 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import copy from '../../src/content/copy.json' with { type: 'json' };
 
 const RETROGRADE = new Date('2026-11-01T12:00:00Z');
-const LAZY_ORB = /lazy-orb/;
+const LAZY_ORB = /orb-anim/;
 const mercuryX = (page: Page) => page.locator('[data-sprite="mercury"]').getAttribute('x');
 const pause = (page: Page) => page.getByRole('button', { name: copy.toggles.motion, exact: true });
 

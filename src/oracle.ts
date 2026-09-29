@@ -38,7 +38,14 @@ function typewrite(el: HTMLElement, text: string): void {
   doc.addEventListener('pointerdown', finish, { once: true });
 }
 
-export function initOracle(view: View, copy: Copy, cycles: readonly Cycle[], now: Date, root: Document = document): void {
+export function initOracle(
+  view: View,
+  copy: Copy,
+  cycles: readonly Cycle[],
+  now: Date,
+  onQuest: (origins: Element[]) => void = () => {},
+  root: Document = document,
+): void {
   const section = root.querySelector<HTMLElement>('#oracle');
   if (!section) return;
   const $ = <T extends HTMLElement>(sel: string) => section.querySelector<T>(sel)!;
@@ -65,6 +72,8 @@ export function initOracle(view: View, copy: Copy, cycles: readonly Cycle[], now
     box.checked = ticks[view.phase]?.[i] ?? false;
     box.addEventListener('change', () => {
       ticks[view.phase] = boxes.map((b) => b.checked);
+      // Sealing the last one completes the quest (an easter egg: eggs.ts).
+      if (box.checked && boxes.every((b) => b.checked)) onQuest(boxes.map((b) => b.nextElementSibling ?? b));
       save(CHECKLIST_KEY, { season, ticks });
       sealed();
     });

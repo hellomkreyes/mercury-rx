@@ -48,6 +48,10 @@ const PAIRS: [string, string, number][] = [
   ['pc-preshadow', 'panel', 3],
   ['pc-retrograde', 'panel', 3],
   ['pc-postshadow', 'panel', 3],
+  // Easter eggs: The Magician's card and the quest banner
+  ['magic-gold', 'panel', 4.5],
+  ['magic-teal', 'panel', 4.5],
+  ['magic-gold', 'dialog', 3],
   // Orb graphics that carry meaning (WCAG 1.4.11)
   ['earth', 'orb', 3],
   ['mercury', 'orb', 3],

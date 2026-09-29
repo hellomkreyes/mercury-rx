@@ -130,6 +130,7 @@
     background: var(--dialog);
     color: var(--dialog-text);
     scroll-margin-block-start: 1rem;
+    position: relative; /* anchors the quest banner and confetti */
   }
   .oracle:focus { outline: none; }
   .oracle > [data-view] { display: grid; gap: 0.75rem; }
