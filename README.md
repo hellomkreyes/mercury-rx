@@ -2,28 +2,44 @@
 
 A pixel-art Mercury retrograde tracker. Static site: Vite + vanilla TypeScript, hosted on GitHub Pages.
 
-## Develop
+## Incantations for the Terminal
 
 ```sh
-npm install
+npm install        # install all ze tings
 npm run dev        # http://localhost:5173/
 npm test           # unit tests (node:test, no extra deps)
 npm run build      # cycles → vite build → size budget
 npm run test:e2e   # Playwright against the production build
 ```
 
-Requires Node 22.18+ (runs TypeScript natively via type stripping).
+### Requires Node 22.18+ 
+
+The tracker runs TypeScript natively via type stripping.
 
 ## How the cosmic math is mathing 💫
 
-`scripts/build-cycles.ts` uses [Astronomy Engine](https://github.com/cosinekitty/astronomy) to find each retrograde's stations and shadow edges, writing `src/content/cycles.json`. `src/phase.ts` turns "now" plus those cycles into the current phase, counted in the visitor's local calendar. Dates may differ from other almanacs by 1–2 days.
+1. `scripts/build-cycles.ts` uses [Astronomy Engine](https://github.com/cosinekitty/astronomy) to find each retrograde's stations and shadow edges, writing `src/content/cycles.json`.
+2. `src/phase.ts` turns "now" plus those cycles into the current phase, counted in the visitor's local calendar.
+3. Dates may differ from other almanacs by 1–2 days.
+4. CI rebuilds weekly (every Monday), so the cycle data and the baked-in phase stay current.
 
-CI rebuilds weekly, so the cycle data and the baked-in phase stay current.
+## CD Setup
+1. Pushes to `main` test and deploy via `.github/workflows/pages.yml` to [rx.chibimuere.com](https://rx.chibimuere.com).
+2. One-time setup: **Settings → Pages → Source: GitHub Actions**, custom domain `rx.chibimuere.com`.
 
-## Deploy
+## Website Copy
 
-Pushes to `main` test and deploy via `.github/workflows/pages.yml` to [rx.chibimuere.com](https://rx.chibimuere.com). One-time setup: **Settings → Pages → Source: GitHub Actions**, custom domain `rx.chibimuere.com`.
+1. All copy lives in `src/content/copy.json`.
+2. `{placeholders}` are filled by `src/view.ts`;
+3. `npm test` fails if one doesn't resolve.
 
-## Content
+## The Vibes Were Coded
 
-All copy lives in `src/content/copy.json`. `{placeholders}` are filled by `src/view.ts`; `npm test` fails if one doesn't resolve.
+Full Disclosure: As much as I hate the term, I did in fact 💫 vibe code 💫 this retrograde tracker with Claude(tte) in Co-work mode. Here's what I did to make sure this tracker wasn't another victim of AI slop:
+1. Prompt Claudette for 3 very different initial wireframes and mockups
+2. Go through 3 rounds of design revisions and choose the strongest design
+4. Prompt Claudette to mock up all UI states, device screens, high contrast options, and double check colours are WCAG AA compliant
+5. Prompt for a written Technical Plan and read the plan to squash any assumptions made by Claudette
+6. Have Claudette break the plan into bite sized PRs
+7. Tackle the build iteratively per PR (I have Claude write the code, while I review PRs and merge edits and changes)
+8. Host the site on GH Pages
