@@ -76,7 +76,8 @@ test('controls that need JS stay hidden until PR 4 wires them', async ({ page })
   await expect(page.locator('.choices')).toBeHidden();
 });
 
-test('forced colors mode has no serious a11y issues', async ({ page }) => {
+test('forced colors mode has no serious a11y issues', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'Safari has no forced colors mode to emulate');
   await page.emulateMedia({ forcedColors: 'active' });
   await open(page, 'retrograde');
   // The OS palette owns colour here. axe reads the authored text colours but the forced (Canvas)
