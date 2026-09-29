@@ -22,8 +22,8 @@ async function open(page: Page, phase: Phase, theme: (typeof THEMES)[number] = '
   await page.evaluate(() => document.fonts.ready);
 }
 
-async function seriousViolations(page: Page) {
-  const { violations } = await new AxeBuilder({ page }).analyze();
+async function seriousViolations(page: Page, disableRules: string[] = []) {
+  const { violations } = await new AxeBuilder({ page }).disableRules(disableRules).analyze();
   return violations.filter((v) => v.impact === 'serious' || v.impact === 'critical').map((v) => `${v.id}: ${v.help}`);
 }
 
@@ -79,7 +79,12 @@ test('controls that need JS stay hidden until PR 4 wires them', async ({ page })
 test('forced colors mode has no serious a11y issues', async ({ page }) => {
   await page.emulateMedia({ forcedColors: 'active' });
   await open(page, 'retrograde');
-  expect(await seriousViolations(page)).toEqual([]);
+  // The OS palette owns colour here. axe reads the authored text colours but the forced (Canvas)
+  // backgrounds, so its contrast rule only reports false positives; every other rule still runs.
+  expect(await seriousViolations(page, ['color-contrast'])).toEqual([]);
+  // What forced colours must keep: the current track segment, painted with the system Highlight.
+  const current = page.locator('.seg[data-seg="retrograde"]');
+  await expect(current).toHaveCSS('forced-color-adjust', 'none');
 });
 
 test.describe('without JavaScript', () => {
