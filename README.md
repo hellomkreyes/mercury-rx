@@ -23,16 +23,6 @@ The tracker runs TypeScript natively via type stripping.
 3. Dates may differ from other almanacs by 1–2 days.
 4. CI rebuilds weekly (every Monday), so the cycle data and the baked-in phase stay current.
 
-## CD Setup
-1. Pushes to `main` test and deploy via `.github/workflows/pages.yml` to [rx.chibimuere.com](https://rx.chibimuere.com).
-2. One-time setup: **Settings → Pages → Source: GitHub Actions**, custom domain `rx.chibimuere.com`.
-
-## Website Copy
-
-1. All copy lives in `src/content/copy.json`.
-2. `{placeholders}` are filled by `src/view.ts`;
-3. `npm test` fails if one doesn't resolve.
-
 ## The Vibes Were Coded
 
 Full Disclosure: As much as I hate the term, I did in fact 💫 vibe code 💫 this retrograde tracker with Claude(tte) in Co-work mode. Here's what I did to make sure this tracker wasn't another victim of AI slop:
@@ -43,3 +33,23 @@ Full Disclosure: As much as I hate the term, I did in fact 💫 vibe code 💫 t
 6. Have Claudette break the plan into bite sized PRs
 7. Tackle the build iteratively per PR (I have Claude write the code, while I review PRs and merge edits and changes)
 8. Host the site on GH Pages
+
+## CD Setup
+
+1. Pushes to `main` test and deploy via `.github/workflows/pages.yml` to [rx.chibimuere.com](https://rx.chibimuere.com).
+2. One-time setup: **Settings → Pages → Source: GitHub Actions**, custom domain `rx.chibimuere.com`.
+
+## Website Copy
+
+1. All copy lives in `src/content/copy.json`.
+2. `{placeholders}` are filled by `src/view.ts`;
+3. `npm test` fails if one doesn't resolve.
+
+## Fonts
+
+Jersey 10, Silkscreen and VT323 (SIL OFL 1.1, licenses in `public/fonts/`) are self-hosted as woff2, subset to Latin-1 plus typographic punctuation:
+
+```sh
+pyftsubset <font>.ttf --flavor=woff2 --layout-features=kern,liga \
+  --unicodes="U+0020-007E,U+00A0-00FF,U+2013,U+2014,U+2018,U+2019,U+201C,U+201D,U+2022,U+2026,U+2032"
+```

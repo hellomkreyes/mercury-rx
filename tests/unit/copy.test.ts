@@ -26,7 +26,7 @@ test('every phase has the same shape of copy', () => {
 test('every placeholder in every phase resolves', () => {
   for (const phase of PHASES) {
     const now = DATES[phase];
-    const view = viewModel(now, getPhase(now, data.cycles, 'UTC'), copy, { timeZone: 'UTC' });
+    const view = viewModel(now, getPhase(now, data.cycles, 'UTC'), data.cycles, copy, { timeZone: 'UTC' });
     assert.equal(view.phase, phase);
     const p = copy.phases[phase];
     const strings = [p.chipSub, p.sub, p.checklist.title, ...p.oracle.cards, ...p.checklist.items].map((t) => fill(t, view.vars));

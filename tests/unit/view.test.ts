@@ -15,7 +15,7 @@ const SCORPIO: Cycle = {
 };
 const view = (iso: string, tz = 'UTC') => {
   const now = new Date(iso);
-  return viewModel(now, getPhase(now, [SCORPIO], tz), copy, { timeZone: tz });
+  return viewModel(now, getPhase(now, [SCORPIO], tz), [SCORPIO], copy, { timeZone: tz });
 };
 
 test('fill replaces known placeholders and leaves unknown ones', () => {
@@ -59,6 +59,15 @@ test('grimoire shows local dates with sign degrees', () => {
 
 test('the build-time bake labels its dates as UTC', () => {
   const now = new Date('2026-09-28T12:00Z');
-  const { slots } = viewModel(now, getPhase(now, [SCORPIO], 'UTC'), copy, { timeZone: 'UTC', labelZone: true });
+  const { slots } = viewModel(now, getPhase(now, [SCORPIO], 'UTC'), [SCORPIO], copy, { timeZone: 'UTC', labelZone: true });
   assert.equal(slots.today, 'Sep 28 UTC');
+});
+
+test('candles mark each of this year’s cycles', () => {
+  const FEB: Cycle = { ...SCORPIO, preShadow: '2026-02-11T22:14Z', stationRx: '2026-02-26T06:48Z', stationDirect: '2026-03-20T19:34Z', postShadowEnd: '2026-04-09T11:42Z', sign: 'Pisces' };
+  const now = new Date('2026-11-01T12:00Z');
+  const { html, slots } = viewModel(now, getPhase(now, [FEB, SCORPIO], 'UTC'), [FEB, SCORPIO], copy, { timeZone: 'UTC' });
+  assert.equal(slots['cycles-heading'], '2026 cycles');
+  assert.match(html.candles!, /data-state="passed".*Feb 26 – Mar 20.*Pisces · passed/);
+  assert.match(html.candles!, /data-state="now".*Oct 24 – Nov 13.*Scorpio · retrograde now/);
 });
