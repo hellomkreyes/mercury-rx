@@ -20,3 +20,41 @@
   src: url('/fonts/VT323-Regular.woff2') format('woff2');
   font-display: swap;
 }
+
+/* Metric-matched fallbacks: a local Courier-width mono, scaled and re-spaced to each pixel font's measurements,
+   so text takes the same room before and after the web font swaps in (no layout shift, no preload needed).
+   size-adjust = the pixel font's average advance ÷ Courier's 0.6em; ascent/descent = its hhea metrics ÷ size-adjust.
+   Tuned by measuring rendered boxes with the web fonts blocked vs loaded (no box moves; see the PR notes). */
+@font-face {
+  font-family: 'Jersey 10 fallback';
+  src: local('Courier New'), local('CourierNewPSMT'), local('Liberation Mono'), local('Cousine'), local('Roboto Mono');
+  size-adjust: 60%;
+  ascent-override: 133.93%;
+  descent-override: 44.64%;
+  line-gap-override: 0%;
+}
+/* Jersey's capitals run wider than its lower case, so the all-caps phase label gets its own. */
+@font-face {
+  font-family: 'Jersey 10 caps fallback';
+  src: local('Courier New'), local('CourierNewPSMT'), local('Liberation Mono'), local('Cousine'), local('Roboto Mono');
+  size-adjust: 71%;
+  ascent-override: 113.18%;
+  descent-override: 37.73%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'VT323 fallback';
+  src: local('Courier New'), local('CourierNewPSMT'), local('Liberation Mono'), local('Cousine'), local('Roboto Mono');
+  size-adjust: 66.67%;
+  ascent-override: 120%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Silkscreen fallback';
+  src: local('Courier New'), local('CourierNewPSMT'), local('Liberation Mono'), local('Cousine'), local('Roboto Mono');
+  size-adjust: 119%;
+  ascent-override: 86.55%;
+  descent-override: 21.01%;
+  line-gap-override: 0%;
+}

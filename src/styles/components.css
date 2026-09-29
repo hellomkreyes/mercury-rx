@@ -54,7 +54,7 @@
   }
   .status-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 0.25rem 1rem; }
   .phase-label {
-    font-family: var(--font-display);
+    font-family: var(--font-display-caps);
     font-size: 3.5rem;
     line-height: 1;
     text-transform: uppercase;
