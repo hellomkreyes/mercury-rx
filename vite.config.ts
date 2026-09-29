@@ -21,4 +21,7 @@ function bakePhase(): Plugin {
 export default defineConfig({
   base: '/',
   plugins: [bakePhase()],
+  // Every split chunk is loaded on demand (the orb, the easter eggs, GSAP they share), so name them
+  // lazy-* for scripts/check-size.ts to budget separately from the first load.
+  build: { rollupOptions: { output: { chunkFileNames: 'assets/lazy-[name]-[hash].js' } } },
 });

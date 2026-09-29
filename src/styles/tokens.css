@@ -32,6 +32,11 @@
     --mercury: #ffffff;
     --wax: #8b5cf6;
 
+    /* Easter eggs: The Magician's card borrows HC yellow and the Direct teal */
+    --magic-gold: #ffe600;
+    --magic-teal: #7ee0b0;
+    --summon-bg: #000000; /* the summoned oracle is black in both themes */
+
     /* Decoration only (no contrast requirement) */
     --decor-border: #3a2775;
     --pillar: #3434d8;
@@ -76,6 +81,8 @@
     --mercury: #ffffff;
     --wax: #ffffff;
     --decor-border: #ffffff;
+    --magic-gold: #ffe600;
+    --magic-teal: #ffffff;
     --pc: #ffe600;
   }
 }

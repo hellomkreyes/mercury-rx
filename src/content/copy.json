@@ -165,5 +165,26 @@
         ]
       }
     }
+  },
+  "eggs": {
+    "quest": {
+      "title": "Quest complete",
+      "badge": "Quest complete",
+      "xp": "+100 XP",
+      "announce": "Quest complete! {xp}, {reward}.",
+      "reward": {
+        "direct": "Swift Messenger +1",
+        "preshadow": "Shadow Warding +1",
+        "retrograde": "Mercury Resistance +1",
+        "postshadow": "Loop Closer +1"
+      }
+    },
+    "konami": {
+      "number": "I",
+      "name": "The Magician",
+      "text": "Ruled by Mercury. You cast the digital spell; the messenger answers himself.",
+      "toast": "CHEAT ACTIVATED: YOU ARE NOW THE PROBLEM.",
+      "dismiss": "Dismiss the Magician"
+    }
   }
 }

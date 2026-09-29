@@ -1,0 +1,109 @@
+/* Easter eggs (src/eggs.ts, src/egg-show.ts). Everything here is built by JS, so it never shows without it. */
+@layer components {
+  /* Quest badge: appears once every box in the checklist is ticked. */
+  .quest-badge { display: inline-flex; align-items: center; gap: 0.375rem; color: var(--magic-gold); }
+  .quest-badge svg { inline-size: 0.625rem; }
+  [data-view='checklist']:has(.chk input:not(:checked)) .quest-badge { display: none; }
+
+  /* Quest complete banner: sits over the checklist heading, never blocks the checkboxes. */
+  .quest {
+    position: absolute;
+    inset-inline: 0.75rem;
+    inset-block-start: 0.75rem;
+    z-index: 5;
+    display: grid;
+    justify-items: center;
+    gap: 0.375rem;
+    padding: 0.75rem 1rem 1rem;
+    border: 4px solid var(--magic-gold);
+    background: var(--panel);
+    box-shadow: 0 0 0 4px var(--panel), 0 0 0 8px var(--magic-teal);
+    color: var(--text);
+    text-align: center;
+    pointer-events: none;
+  }
+  .quest-title { font-family: var(--font-display-caps); font-size: 2.5rem; line-height: 1; text-transform: uppercase; color: var(--magic-gold); }
+  .quest-xp { font-family: var(--font-label); font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--magic-teal); }
+  .quest-bar { inline-size: min(100%, 16rem); block-size: 0.75rem; border: 3px solid var(--magic-teal); }
+  .quest-bar span { display: block; block-size: 100%; background: repeating-linear-gradient(90deg, var(--magic-gold) 0 6px, transparent 6px 8px); transform-origin: left; transform: scaleX(0); }
+
+  .confetti { position: absolute; inset: 0; z-index: 6; overflow: visible; pointer-events: none; }
+  .confetti span { position: absolute; inline-size: 6px; block-size: 6px; }
+
+  /* The summoned oracle: a second dialog box, centred, dealing The Magician. */
+  .summon {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    inline-size: min(22rem, 100% - 2rem);
+    block-size: fit-content;
+    max-block-size: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 1.25rem;
+    overflow: auto;
+    border: 5px solid var(--dialog-text);
+    background: var(--summon-bg);
+    color: var(--dialog-text);
+    box-shadow: 0 0 0 5px var(--bg), 0 0 0 10px var(--magic-gold);
+  }
+  .summon:focus { outline: none; } /* focused only so screen readers start here; the button shows focus */
+  .summon-text { font-size: 1.5rem; line-height: 1.1; text-align: center; }
+
+  .tarot { inline-size: 10rem; aspect-ratio: 5 / 8; perspective: 40rem; }
+  .tarot-inner { position: relative; block-size: 100%; transform-style: preserve-3d; }
+  .tarot-face {
+    position: absolute;
+    inset: 0;
+    border: 4px solid var(--magic-gold);
+    background: var(--panel);
+    backface-visibility: hidden;
+  }
+  .tarot-back {
+    rotate: y 180deg;
+    background:
+      repeating-conic-gradient(var(--magic-teal) 0 25%, var(--panel) 0 50%) center / 1rem 1rem,
+      var(--panel);
+    box-shadow: inset 0 0 0 6px var(--panel), inset 0 0 0 9px var(--magic-gold);
+  }
+  .tarot-front {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+    padding: 0.5rem;
+    box-shadow: inset 0 0 0 4px var(--panel), inset 0 0 0 6px var(--magic-teal);
+  }
+  .tarot-num { font-family: var(--font-display); font-size: 1.5rem; line-height: 1; color: var(--magic-gold); }
+  .tarot-art { inline-size: 70%; block-size: 100%; }
+  .px-g { fill: var(--magic-gold); }
+  .px-t { fill: var(--magic-teal); }
+  .px-w { fill: var(--text); }
+  .tarot-name { font-family: var(--font-label); font-size: 0.75rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--magic-gold); }
+
+  .toast {
+    position: fixed;
+    inset-inline: 1rem;
+    inset-block-end: 1rem;
+    z-index: 31;
+    inline-size: fit-content;
+    max-inline-size: calc(100% - 2rem);
+    margin-inline: auto;
+    padding: 0.625rem 1rem;
+    border: 3px solid var(--magic-gold);
+    background: var(--bg);
+    box-shadow: 4px 4px 0 var(--magic-teal);
+    font-family: var(--font-label);
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    color: var(--magic-gold);
+    text-align: center;
+  }
+
+  @media (forced-colors: active) {
+    .quest, .summon, .toast, .tarot-face { border-color: CanvasText; box-shadow: none; }
+    .tarot-back { background: Canvas; }
+    .px-g, .px-t, .px-w { fill: CanvasText; }
+  }
+}
