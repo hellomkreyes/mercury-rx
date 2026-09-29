@@ -1,0 +1,150 @@
+{
+  "generated": "2026-09-28T23:23:16.149Z",
+  "source": "astronomy-engine",
+  "cycles": [
+    {
+      "preShadow": "2025-03-01T07:58Z",
+      "stationRx": "2025-03-15T06:48Z",
+      "stationDirect": "2025-04-07T11:05Z",
+      "postShadowEnd": "2025-04-26T08:26Z",
+      "rxLongitude": 9.59,
+      "directLongitude": 356.83,
+      "sign": "Aries"
+    },
+    {
+      "preShadow": "2025-06-30T05:52Z",
+      "stationRx": "2025-07-18T04:39Z",
+      "stationDirect": "2025-08-11T07:33Z",
+      "postShadowEnd": "2025-08-25T08:36Z",
+      "rxLongitude": 135.57,
+      "directLongitude": 124.25,
+      "sign": "Leo"
+    },
+    {
+      "preShadow": "2025-10-21T11:13Z",
+      "stationRx": "2025-11-09T19:01Z",
+      "stationDirect": "2025-11-29T17:39Z",
+      "postShadowEnd": "2025-12-17T03:56Z",
+      "rxLongitude": 246.86,
+      "directLongitude": 230.71,
+      "sign": "Sagittarius"
+    },
+    {
+      "preShadow": "2026-02-11T22:14Z",
+      "stationRx": "2026-02-26T06:48Z",
+      "stationDirect": "2026-03-20T19:34Z",
+      "postShadowEnd": "2026-04-09T11:42Z",
+      "rxLongitude": 352.57,
+      "directLongitude": 338.49,
+      "sign": "Pisces"
+    },
+    {
+      "preShadow": "2026-06-13T00:55Z",
+      "stationRx": "2026-06-29T17:38Z",
+      "stationDirect": "2026-07-23T22:57Z",
+      "postShadowEnd": "2026-08-07T03:38Z",
+      "rxLongitude": 116.26,
+      "directLongitude": 106.32,
+      "sign": "Cancer"
+    },
+    {
+      "preShadow": "2026-10-04T09:11Z",
+      "stationRx": "2026-10-24T07:16Z",
+      "stationDirect": "2026-11-13T15:53Z",
+      "postShadowEnd": "2026-11-30T06:17Z",
+      "rxLongitude": 230.98,
+      "directLongitude": 215.03,
+      "sign": "Scorpio"
+    },
+    {
+      "preShadow": "2027-01-25T18:59Z",
+      "stationRx": "2027-02-09T17:36Z",
+      "stationDirect": "2027-03-03T12:35Z",
+      "postShadowEnd": "2027-03-23T15:01Z",
+      "rxLongitude": 335.98,
+      "directLongitude": 320.92,
+      "sign": "Pisces"
+    },
+    {
+      "preShadow": "2027-05-26T06:05Z",
+      "stationRx": "2027-06-10T18:19Z",
+      "stationDirect": "2027-07-04T19:41Z",
+      "postShadowEnd": "2027-07-19T08:43Z",
+      "rxLongitude": 96.36,
+      "directLongitude": 87.47,
+      "sign": "Cancer"
+    },
+    {
+      "preShadow": "2027-09-17T07:28Z",
+      "stationRx": "2027-10-07T14:40Z",
+      "stationDirect": "2027-10-28T14:11Z",
+      "postShadowEnd": "2027-11-13T09:56Z",
+      "rxLongitude": 214.93,
+      "directLongitude": 199.31,
+      "sign": "Scorpio"
+    },
+    {
+      "preShadow": "2028-01-08T19:25Z",
+      "stationRx": "2028-01-24T11:04Z",
+      "stationDirect": "2028-02-14T12:39Z",
+      "postShadowEnd": "2028-03-05T16:46Z",
+      "rxLongitude": 319.7,
+      "directLongitude": 303.99,
+      "sign": "Aquarius"
+    },
+    {
+      "preShadow": "2028-05-06T18:41Z",
+      "stationRx": "2028-05-21T08:39Z",
+      "stationDirect": "2028-06-14T06:08Z",
+      "postShadowEnd": "2028-06-29T08:58Z",
+      "rxLongitude": 76.31,
+      "directLongitude": 67.76,
+      "sign": "Gemini"
+    },
+    {
+      "preShadow": "2028-08-30T07:17Z",
+      "stationRx": "2028-09-19T16:32Z",
+      "stationDirect": "2028-10-11T10:30Z",
+      "postShadowEnd": "2028-10-26T13:50Z",
+      "rxLongitude": 198.59,
+      "directLongitude": 183.48,
+      "sign": "Libra"
+    },
+    {
+      "preShadow": "2028-12-21T21:24Z",
+      "stationRx": "2029-01-07T07:58Z",
+      "stationDirect": "2029-01-27T18:37Z",
+      "postShadowEnd": "2029-02-16T16:51Z",
+      "rxLongitude": 303.63,
+      "directLongitude": 287.54,
+      "sign": "Aquarius"
+    },
+    {
+      "preShadow": "2029-04-17T22:44Z",
+      "stationRx": "2029-05-01T23:10Z",
+      "stationDirect": "2029-05-25T19:16Z",
+      "postShadowEnd": "2029-06-10T19:54Z",
+      "rxLongitude": 56.67,
+      "directLongitude": 47.56,
+      "sign": "Taurus"
+    },
+    {
+      "preShadow": "2029-08-13T09:10Z",
+      "stationRx": "2029-09-02T12:16Z",
+      "stationDirect": "2029-09-25T02:04Z",
+      "postShadowEnd": "2029-10-09T16:20Z",
+      "rxLongitude": 181.83,
+      "directLongitude": 167.45,
+      "sign": "Libra"
+    },
+    {
+      "preShadow": "2029-12-04T23:17Z",
+      "stationRx": "2029-12-22T05:51Z",
+      "stationDirect": "2030-01-11T05:44Z",
+      "postShadowEnd": "2030-01-30T15:52Z",
+      "rxLongitude": 287.71,
+      "directLongitude": 271.44,
+      "sign": "Capricorn"
+    }
+  ]
+}
