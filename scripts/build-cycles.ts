@@ -73,7 +73,12 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const now = new Date();
   const from = new Date(Date.UTC(now.getUTCFullYear() - 1, 0, 1));
   const to = new Date(Date.UTC(now.getUTCFullYear() + 3, 11, 31));
-  const out = { generated: now.toISOString(), source: 'astronomy-engine', cycles: buildCycles(from, to) };
+  const cycles = buildCycles(from, to);
+  const first = cycles[0];
+  const last = cycles.at(-1);
+  if (!first || !last) throw new Error(`No retrograde cycles found between ${from.toISOString()} and ${to.toISOString()}.`);
+
+  const out = { generated: now.toISOString(), source: 'astronomy-engine', cycles };
   writeFileSync(new URL('../src/content/cycles.json', import.meta.url), JSON.stringify(out, null, 2) + '\n');
-  console.log(`cycles.json: ${out.cycles.length} cycles, ${out.cycles[0].stationRx} → ${out.cycles.at(-1)!.postShadowEnd}`);
+  console.log(`cycles.json: ${cycles.length} cycles, ${first.stationRx} → ${last.postShadowEnd}`);
 }
