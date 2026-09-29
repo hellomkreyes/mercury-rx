@@ -1,4 +1,4 @@
-# Mercury RX · The Hidden Realm
+# Mercury Rx · 🔮 The Hidden Realm 🕯️
 
 A pixel-art Mercury retrograde tracker. Static site: Vite + vanilla TypeScript, hosted on GitHub Pages.
 
