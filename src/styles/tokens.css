@@ -1,0 +1,64 @@
+/* Design tokens. Every text/UI pair is contrast-checked by tests/unit/contrast.test.ts. */
+@layer tokens {
+  :root {
+    color-scheme: dark;
+
+    /* Surfaces */
+    --bg: #06030d;
+    --panel: #0e0820;
+    --panel-2: #120a2a;
+    --dialog: #2a1fd0;
+
+    /* Text */
+    --text: #f3ecff;
+    --muted: #c8bde6;
+    --heading: #d6b8ff;
+    --pink: #ff9be6;
+    --gold: #ffd479;
+    --blue: #9fb0ff;
+    --dialog-text: #ffffff;
+    --dialog-muted: #d6d2ff;
+    --footer: #9d93c2;
+
+    /* UI + graphics */
+    --ui-border: #8b5cf6;
+    --track: #6f5cb8;
+    --candle-off: #8c86a8;
+    --focus: #ffd479;
+    --on-accent: #06030d;
+
+    /* Phase accents; --pc is the one in use */
+    --pc-direct: #7ee0b0;
+    --pc-preshadow: #ffd479;
+    --pc-retrograde: #ff5fa8;
+    --pc-postshadow: #b58cff;
+    --pc: var(--pc-direct);
+  }
+
+  [data-phase="preshadow"] { --pc: var(--pc-preshadow); }
+  [data-phase="retrograde"] { --pc: var(--pc-retrograde); }
+  [data-phase="postshadow"] { --pc: var(--pc-postshadow); }
+
+  /* High contrast: black, white, one yellow. Set by the toggle; PR 4 also syncs it with prefers-contrast. */
+  [data-theme="hc"] {
+    --bg: #000000;
+    --panel: #000000;
+    --panel-2: #000000;
+    --dialog: #000000;
+    --text: #ffffff;
+    --muted: #ffffff;
+    --heading: #ffffff;
+    --pink: #ffe600;
+    --gold: #ffe600;
+    --blue: #ffffff;
+    --dialog-text: #ffffff;
+    --dialog-muted: #ffffff;
+    --footer: #ffffff;
+    --ui-border: #ffffff;
+    --track: #ffffff;
+    --candle-off: #ffffff;
+    --focus: #ffe600;
+    --on-accent: #000000;
+    --pc: #ffe600;
+  }
+}

@@ -1,12 +1,11 @@
-// Entry point. For now it only proves the phase engine end to end; the UI lands in the next PR.
+// Progressive enhancement: the build already baked today's phase in UTC; refresh it in local time.
+import './styles/tokens.css';
+import './styles/base.css';
 import { getPhase } from './phase.ts';
-import data from './content/cycles.json';
+import { viewModel } from './view.ts';
+import { render } from './render.ts';
+import cycles from './content/cycles.json';
+import copy from './content/copy.json';
 
-const state = getPhase(new Date(), data.cycles);
-document.documentElement.dataset.phase = state.phase;
-
-const status = document.getElementById('status');
-if (status) {
-  const detail = state.day ? ` (day ${state.day} of ${state.total})` : ` (retrograde in ${state.until.stationRx} days)`;
-  status.textContent = `Mercury is ${state.phase}${detail}.`;
-}
+const now = new Date();
+render(viewModel(now, getPhase(now, cycles.cycles), copy));

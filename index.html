@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-phase="direct">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,12 +7,43 @@
     <meta name="description" content="Is Mercury in the microwave? Enter the Hidden Realm: a pixel-art tracker for Mercury's retrograde and shadow periods.">
   </head>
   <body>
+    <!-- Every data-slot is filled at build time (UTC) and again in the browser (local time). Styling lands in PR 3. -->
+    <a class="skip" href="#oracle" data-slot="skip"></a>
+
+    <header>
+      <h1 data-slot="site-title"></h1>
+      <p class="chip"><span data-slot="chip"></span> <span data-slot="chip-sub"></span></p>
+    </header>
+
     <main>
-      <h1>Mercury RX · The Hidden Realm</h1>
-      <!-- Placeholder until the UI PR: main.ts fills this in; without JS it stays as-is. -->
-      <p id="status">Consulting the stars…</p>
-      <p><small>Dates are calculated with Astronomy Engine and may differ from other almanacs by 1–2 days.</small></p>
+      <section aria-labelledby="status-heading">
+        <h2 id="status-heading"><span data-slot="status-heading"></span> · <span data-slot="today"></span></h2>
+        <p class="phase-label" data-slot="phase-label"></p>
+        <p><span data-slot="countdown-n"></span> <span data-slot="countdown-unit"></span></p>
+        <p data-slot="sub"></p>
+      </section>
+
+      <section id="oracle" aria-labelledby="oracle-heading">
+        <h2 id="oracle-heading"><span data-slot="oracle-lead"></span><em data-slot="oracle-em"></em>…</h2>
+        <p aria-live="polite" data-slot="oracle-card"></p>
+      </section>
+
+      <section aria-labelledby="grimoire-heading">
+        <h2 id="grimoire-heading" data-slot="grimoire-heading"></h2>
+        <dl>
+          <dt data-slot="grimoire-pre"></dt><dd data-slot="pre-shadow-date"></dd>
+          <dt data-slot="grimoire-rx"></dt><dd data-slot="station-rx-date"></dd>
+          <dt data-slot="grimoire-direct"></dt><dd data-slot="station-direct-date"></dd>
+          <dt data-slot="grimoire-post"></dt><dd data-slot="post-shadow-date"></dd>
+          <dt data-slot="grimoire-sign"></dt><dd data-slot="sign"></dd>
+        </dl>
+      </section>
     </main>
+
+    <footer>
+      <p><small data-slot="disclaimer"></small></p>
+    </footer>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

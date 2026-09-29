@@ -1,0 +1,148 @@
+{
+  "site": {
+    "title": "Mercury RX · The Hidden Realm",
+    "skip": "Skip to the oracle"
+  },
+  "toggles": {
+    "group": "Display settings",
+    "motion": "Pause motion",
+    "contrast": "High contrast"
+  },
+  "status": {
+    "heading": "Mercury status"
+  },
+  "track": {
+    "preshadow": "Pre-shadow",
+    "retrograde": "Retrograde",
+    "postshadow": "Post-shadow"
+  },
+  "grimoire": {
+    "heading": "Grimoire",
+    "preShadow": "Pre-shadow",
+    "stationRx": "Station retrograde",
+    "stationDirect": "Station direct",
+    "postShadowEnd": "Post-shadow ends",
+    "sign": "Sign"
+  },
+  "orb": {
+    "alt": "Crystal ball: Earth and Mercury both orbit the Sun. A line of sight from Earth through Mercury marks where Mercury appears against the stars; when Mercury laps Earth, that spot slides backward, which is retrograde motion.",
+    "forward": "Appears to move forward (direct)",
+    "backward": "Appears to move backward (retrograde)"
+  },
+  "oracle": {
+    "heed": "Heed the stars",
+    "askAgain": "Ask again",
+    "back": "Back to the oracle",
+    "card": "Card {n} of {total}",
+    "sealed": "{done} of {total} sealed",
+    "whyNoResetLabel": "Why doesn't this reset?",
+    "whyNoReset": "Pre-shadow, retrograde and post-shadow are one cycle, so your checklist carries through all three. It clears when the next pre-shadow begins."
+  },
+  "disclaimer": {
+    "short": "Dates via Astronomy Engine; may differ from other almanacs by 1–2 days.",
+    "full": "Dates are calculated with Astronomy Engine and may differ from other almanacs by 1–2 days."
+  },
+  "phases": {
+    "direct": {
+      "label": "Direct",
+      "chip": "Direct · clear skies",
+      "chipSub": "Pre-shadow in {preShadowDays}",
+      "countdown": { "one": "day until retrograde", "other": "days until retrograde" },
+      "sub": "Pre-shadow begins {preShadowDate}.",
+      "oracle": {
+        "lead": "The oracle speaks of ",
+        "em": "clear skies",
+        "cards": [
+          "Clear skies. Send the letters, sign the pacts, start the new spell.",
+          "The messenger runs swift. Launch what you have been holding back.",
+          "A season for fresh starts. Write it down while the ink still flows."
+        ]
+      },
+      "checklist": {
+        "title": "Before the shadow falls",
+        "items": [
+          "Start the thing you keep postponing",
+          "Book travel and confirm the dates",
+          "Back up your phone and laptop",
+          "Send the email you have been drafting"
+        ]
+      }
+    },
+    "preshadow": {
+      "label": "Pre-shadow",
+      "chip": "Pre-shadow",
+      "chipSub": "Day {day} of {total}",
+      "countdown": { "one": "day until retrograde", "other": "days until retrograde" },
+      "sub": "Mercury is slowing over ground it will cross three times.",
+      "oracle": {
+        "lead": "The oracle speaks of ",
+        "em": "the coming reversal",
+        "cards": [
+          "The messenger slows. Back up your scrolls and confirm your travels.",
+          "Finish what is half-cast before the {stationRxDay}. Tie loose threads now.",
+          "Read the fine print twice. What you sign now, you will revisit."
+        ]
+      },
+      "checklist": {
+        "title": "Seal these before the {stationRxDay}",
+        "items": [
+          "Back up your files and photos",
+          "Confirm travel plans and bookings",
+          "Sign contracts before {stationRxDate}",
+          "Re-read messages before sending"
+        ]
+      }
+    },
+    "retrograde": {
+      "label": "Retrograde",
+      "chip": "Retrograde now",
+      "chipSub": "Day {day} of {total}",
+      "countdown": { "one": "day until direct", "other": "days until direct" },
+      "sub": "Mercury appears to walk backward through {sign}.",
+      "oracle": {
+        "lead": "The oracle speaks of ",
+        "em": "the reversal, now upon you",
+        "cards": [
+          "The messenger walks backward. Revisit old spells. Do not cast new ones.",
+          "Old voices may return. Listen, but do not sign in blood.",
+          "Tech hexes are likely. Save often, restart gently, breathe.",
+          "Re-read, re-do, reconnect. The re- words are your allies."
+        ]
+      },
+      "checklist": {
+        "title": "Rituals for the reversal",
+        "items": [
+          "Double-check before you hit send",
+          "Revisit an unfinished project",
+          "Save your work every hour",
+          "Reconnect with someone from the past"
+        ]
+      }
+    },
+    "postshadow": {
+      "label": "Post-shadow",
+      "chip": "Post-shadow",
+      "chipSub": "Day {day} of {total}",
+      "countdown": { "one": "day until clear skies", "other": "days until clear skies" },
+      "sub": "Mercury is direct again, retracing its steps until {postShadowDate}.",
+      "oracle": {
+        "lead": "The oracle speaks of ",
+        "em": "the long way home",
+        "cards": [
+          "The messenger retraces his steps. Loose ends resurface to be tied.",
+          "Choices made in the reversal can now be made official, slowly.",
+          "Clear skies return {postShadowDate}. Launch then, not now."
+        ]
+      },
+      "checklist": {
+        "title": "Close the loop by {postShadowDate}",
+        "items": [
+          "Finalize decisions you paused",
+          "Follow up on returned messages",
+          "Fix what broke during the reversal",
+          "Plan your launch for after {postShadowDate}"
+        ]
+      }
+    }
+  }
+}
