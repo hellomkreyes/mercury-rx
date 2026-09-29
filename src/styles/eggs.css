@@ -45,7 +45,7 @@
     padding: 1.25rem;
     overflow: auto;
     border: 5px solid var(--dialog-text);
-    background: var(--dialog);
+    background: var(--summon-bg);
     color: var(--dialog-text);
     box-shadow: 0 0 0 5px var(--bg), 0 0 0 10px var(--magic-gold);
   }

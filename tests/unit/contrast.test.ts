@@ -52,6 +52,9 @@ const PAIRS: [string, string, number][] = [
   ['magic-gold', 'panel', 4.5],
   ['magic-teal', 'panel', 4.5],
   ['magic-gold', 'dialog', 3],
+  ['dialog-text', 'summon-bg', 4.5],
+  ['magic-teal', 'summon-bg', 4.5],
+  ['focus', 'summon-bg', 3],
   // Orb graphics that carry meaning (WCAG 1.4.11)
   ['earth', 'orb', 3],
   ['mercury', 'orb', 3],
