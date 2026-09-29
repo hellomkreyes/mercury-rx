@@ -1,6 +1,10 @@
 /* High contrast and forced colors. Tokens already swap in tokens.css; this strips decoration and adds outlines. */
 @layer themes {
-  [data-theme='hc'] .sky { display: none; }
+  [data-theme='hc'] .sky,
+  [data-theme='hc'] .gate,
+  [data-theme='hc'] .pedestal,
+  [data-theme='hc'] .gate-candles { display: none; }
+  [data-theme='hc'] .title-main { text-shadow: none; }
   [data-theme='hc'] .panel,
   [data-theme='hc'] .status { box-shadow: none; outline: 3px solid var(--text); outline-offset: 0; }
   [data-theme='hc'] .grimoire,
@@ -13,7 +17,7 @@
   [data-theme='hc'] :focus-visible { outline-width: 4px; }
 
   @media (forced-colors: active) {
-    .sky { display: none; }
+    .sky, .gate, .pedestal, .gate-candles { display: none; }
     .panel, .chip, .toggle { border: 2px solid CanvasText; }
     .status { box-shadow: none; }
     .seg { border-color: CanvasText; }
@@ -24,7 +28,9 @@
     [data-phase='retrograde'] .seg[data-seg='preshadow'],
     [data-phase='postshadow'] .seg[data-seg='preshadow'],
     [data-phase='postshadow'] .seg[data-seg='retrograde'] { forced-color-adjust: none; background: GrayText; }
-    .tip-text { border-color: CanvasText; }
+    .tip-text { border-color: CanvasText; box-shadow: none; }
+    .tip-text::before { forced-color-adjust: none; background: CanvasText; }
+    .tip-text::after { forced-color-adjust: none; background: Canvas; }
     .candle::before { forced-color-adjust: none; background: linear-gradient(GrayText, GrayText) bottom / 100% 2.5rem no-repeat; }
     .candle:is([data-state='next'], [data-state='now'], [data-state='after'])::before {
       background:

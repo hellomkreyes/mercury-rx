@@ -40,3 +40,9 @@ test('decks and checklists are the designed sizes', () => {
     assert.equal(copy.phases[phase].checklist.items.length, 4, `${phase} has 4 checklist items`);
   }
 });
+
+test('the footer credit and the 404 page have their copy', () => {
+  assert.equal(copy.footer.year, '© 3005'); // a Childish Gambino nod, and a prophecy: never "fix" it
+  for (const value of [copy.footer.name, copy.footer.collab, ...Object.values(copy.notFound), copy.site.titleMain, copy.site.titleSub]) assert.ok(value.trim());
+  assert.equal(`${copy.site.titleMain} · ${copy.site.titleSub}`, copy.site.title);
+});

@@ -92,6 +92,9 @@ test.describe('without JavaScript', () => {
     await expect(page.locator('[data-slot="today"]')).toContainText('UTC');
     await expect(page.locator('.candle').first()).toBeVisible();
     await expect(page.locator('[data-slot="disclaimer"]')).toHaveText(copy.disclaimer.full);
+    const credit = page.getByRole('link', { name: copy.footer.name });
+    await expect(credit).toHaveAttribute('href', 'https://chibimuere.com');
+    await expect(page.locator('.credit')).toContainText(`${copy.footer.year} ${copy.footer.name} · ${copy.footer.collab}`);
     // Controls that need JS stay out of the way.
     await expect(page.locator('.toggles')).toBeHidden();
     await expect(page.getByRole('button', { name: copy.oracle.askAgain })).toBeHidden();

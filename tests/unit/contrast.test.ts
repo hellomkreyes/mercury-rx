@@ -37,6 +37,8 @@ const PAIRS: [string, string, number][] = [
   ['dialog-muted', 'dialog', 4.5],
   ['gold', 'dialog', 4.5],
   ['footer', 'bg', 4.5],
+  ['pink', 'bg', 4.5], // footer link
+  ['gold', 'bg', 4.5], // h1 subtitle
   ['on-accent', 'ui-border', 4.5],
   ['on-accent', 'focus', 4.5],
   ['ui-border', 'bg', 3],
