@@ -7,6 +7,8 @@
     <meta name="description" content="Is Mercury in the microwave? Enter the Hidden Realm: a pixel-art tracker for Mercury's retrograde and shadow periods.">
     <meta name="theme-color" content="#06030d">
     <link rel="preload" href="/fonts/Jersey10-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Applies saved (or OS) contrast and motion prefs before first paint. Same rules as src/prefs.ts. -->
+    <script>(function(){var d=document.documentElement,p={};try{p=JSON.parse(localStorage.getItem('mrx:prefs'))||{}}catch(e){}var m=function(q){return matchMedia(q).matches};if(p.hc!=null?p.hc:m('(prefers-contrast: more)'))d.dataset.theme='hc';if(p.still!=null?p.still:m('(prefers-reduced-motion: reduce)'))d.dataset.motion='off'})()</script>
   </head>
   <body>
     <!-- Every data-slot / data-html is filled at build time (UTC) and again in the browser (local time). -->
@@ -20,7 +22,7 @@
         <span class="chip-main" data-slot="chip"></span>
         <span class="chip-sub" data-slot="chip-sub"></span>
       </p>
-      <!-- Enabled by JS in PR 4; hidden until then so nobody meets a dead button. -->
+      <!-- Shown by JS (src/prefs.ts) so nobody meets a dead button. -->
       <div class="toggles" role="group" aria-labelledby="toggles-label" hidden>
         <span id="toggles-label" class="visually-hidden" data-slot="toggles-group"></span>
         <button type="button" class="toggle" aria-pressed="false" data-toggle="motion">
@@ -82,15 +84,36 @@
       </section>
 
       <section id="oracle" class="panel oracle" aria-labelledby="oracle-heading" tabindex="-1">
-        <div class="oracle-top">
-          <h2 id="oracle-heading" class="oracle-heading"><span data-slot="oracle-lead"></span><em data-slot="oracle-em"></em>…</h2>
-          <span class="label oracle-count" data-slot="oracle-count"></span>
+        <div data-view="oracle">
+          <div class="oracle-top">
+            <h2 id="oracle-heading" class="oracle-heading"><span data-slot="oracle-lead"></span><em data-slot="oracle-em"></em>…</h2>
+            <span class="label oracle-count" data-slot="oracle-count"></span>
+          </div>
+          <p class="oracle-card" aria-live="polite" data-slot="oracle-card"></p>
+          <!-- Shown by JS (src/oracle.ts). -->
+          <div class="choices" hidden>
+            <button type="button" class="choice" data-action="heed"><svg class="cur" viewBox="0 0 3 5" aria-hidden="true"><path d="M0 0h1v5H0zM1 1h1v3H1zM2 2h1v1H2z"/></svg><span data-slot="heed"></span></button>
+            <button type="button" class="choice" data-action="ask"><svg class="cur" viewBox="0 0 3 5" aria-hidden="true"><path d="M0 0h1v5H0zM1 1h1v3H1zM2 2h1v1H2z"/></svg><span data-slot="ask-again"></span></button>
+          </div>
         </div>
-        <p class="oracle-card" aria-live="polite" data-slot="oracle-card"></p>
-        <!-- Enabled by JS in PR 4. -->
-        <div class="choices" hidden>
-          <button type="button" class="choice" data-action="heed"><svg class="cur" viewBox="0 0 3 5" aria-hidden="true"><path d="M0 0h1v5H0zM1 1h1v3H1zM2 2h1v1H2z"/></svg><span data-slot="heed"></span></button>
-          <button type="button" class="choice" data-action="ask"><svg class="cur" viewBox="0 0 3 5" aria-hidden="true"><path d="M0 0h1v5H0zM1 1h1v3H1zM2 2h1v1H2z"/></svg><span data-slot="ask-again"></span></button>
+
+        <!-- Heed the stars: the phase's checklist. Needs JS to keep ticks, so it starts hidden. -->
+        <div data-view="checklist" hidden>
+          <div class="oracle-top">
+            <h2 id="checklist-heading" class="oracle-heading" tabindex="-1" data-slot="checklist-title"></h2>
+            <span class="tip">
+              <span class="label oracle-count" aria-live="polite" data-slot="checklist-count"></span>
+              <button type="button" class="tip-btn" aria-expanded="false" aria-controls="why-tip">
+                <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M1 0h5v1H1zM0 1h1v5H0zM6 1h1v5H6zM1 6h5v1H1zM3 1h1v1H3zM3 3h1v3H3z"/></svg>
+                <span class="visually-hidden" data-slot="why-label"></span>
+              </button>
+            </span>
+          </div>
+          <p id="why-tip" class="tip-text" hidden data-slot="why-no-reset"></p>
+          <ul class="checklist" data-html="checklist"></ul>
+          <div class="choices">
+            <button type="button" class="choice" data-action="back"><svg class="cur" viewBox="0 0 3 5" aria-hidden="true"><path d="M0 0h1v5H0zM1 1h1v3H1zM2 2h1v1H2z"/></svg><span data-slot="return"></span></button>
+          </div>
         </div>
       </section>
 

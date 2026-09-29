@@ -47,6 +47,8 @@ const degrees = (lon: number): string => {
   return `${whole}°${String(Math.round((inSign - whole) * 60)).padStart(2, '0')}′`;
 };
 
+const CHECK = '<svg viewBox="0 0 7 6"><path d="M6 0h1v2H6zM5 1h1v2H5zM4 2h1v2H4zM3 3h1v2H3zM2 4h1v2H2zM1 3h1v2H1zM0 2h1v2H0z"/></svg>';
+
 type CandleState = 'passed' | 'now' | 'next' | 'after' | 'upcoming';
 
 // Where a cycle stands relative to the current one.
@@ -109,6 +111,9 @@ export function viewModel(
     'track-post': copy.track.postshadow,
     heed: copy.oracle.heed,
     'ask-again': copy.oracle.askAgain,
+    return: copy.oracle.back,
+    'why-label': copy.oracle.whyNoResetLabel,
+    'why-no-reset': copy.oracle.whyNoReset,
     disclaimer: copy.disclaimer.full,
     // Phase copy
     'phase-label': text.label,
@@ -125,6 +130,7 @@ export function viewModel(
     'oracle-card': f(text.oracle.cards[0] ?? ''),
     'oracle-count': fill(copy.oracle.card, { n: 1, total: text.oracle.cards.length }),
     'checklist-title': f(text.checklist.title),
+    'checklist-count': fill(copy.oracle.sealed, { done: 0, total: text.checklist.items.length }),
     'pre-shadow-date': date(cycle.preShadow),
     'station-rx-date': `${date(cycle.stationRx)} · ${degrees(cycle.rxLongitude)}`,
     'station-direct-date': `${date(cycle.stationDirect)} · ${degrees(cycle.directLongitude)}`,
@@ -145,5 +151,11 @@ export function viewModel(
       return `<li class="candle" data-state="${s}"><span class="candle-range">${escapeHtml(range)}</span><span class="candle-meta">${escapeHtml(`${c.sign} · ${copy.cycles[s]}`)}</span></li>`;
     });
 
-  return { phase, slots, html: { candles: candles.join('') }, progress, vars };
+  // The phase's checklist; ticks are restored in the browser (oracle.ts).
+  const checklist = text.checklist.items.map(
+    (item, i) =>
+      `<li><label class="chk"><input type="checkbox" data-index="${i}"><span class="box" aria-hidden="true">${CHECK}</span><span class="txt">${escapeHtml(f(item))}</span></label></li>`,
+  );
+
+  return { phase, slots, html: { candles: candles.join(''), checklist: checklist.join('') }, progress, vars };
 }

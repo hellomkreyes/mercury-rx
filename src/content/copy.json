@@ -45,7 +45,7 @@
     "card": "Card {n} of {total}",
     "sealed": "{done} of {total} sealed",
     "whyNoResetLabel": "Why doesn't this reset?",
-    "whyNoReset": "Pre-shadow, retrograde and post-shadow are one cycle, so your checklist carries through all three. It clears when the next pre-shadow begins."
+    "whyNoReset": "Each phase has its own rituals. Your ticks stay until the next pre-shadow begins."
   },
   "disclaimer": {
     "short": "Dates via Astronomy Engine; may differ from other almanacs by 1–2 days.",

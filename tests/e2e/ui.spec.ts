@@ -17,8 +17,7 @@ const WIDTHS = [360, 768, 1440];
 async function open(page: Page, phase: Phase, theme: (typeof THEMES)[number] = 'default') {
   await page.clock.setFixedTime(new Date(DATES[phase]));
   await page.goto('/');
-  // PR 4 wires the toggle; until then set the theme the way the toggle will.
-  if (theme === 'hc') await page.evaluate(() => (document.documentElement.dataset.theme = 'hc'));
+  if (theme === 'hc') await page.getByRole('button', { name: copy.toggles.contrast }).click();
   await page.evaluate(() => document.fonts.ready);
 }
 
@@ -70,12 +69,6 @@ test('skip link is the first tab stop and lands on the oracle', async ({ page, b
   await expect(page.locator('#oracle')).toBeFocused();
 });
 
-test('controls that need JS stay hidden until PR 4 wires them', async ({ page }) => {
-  await open(page, 'direct');
-  await expect(page.locator('.toggles')).toBeHidden();
-  await expect(page.locator('.choices')).toBeHidden();
-});
-
 test('forced colors mode has no serious a11y issues', async ({ page, browserName }) => {
   test.skip(browserName === 'webkit', 'Safari has no forced colors mode to emulate');
   await page.emulateMedia({ forcedColors: 'active' });
@@ -99,5 +92,8 @@ test.describe('without JavaScript', () => {
     await expect(page.locator('[data-slot="today"]')).toContainText('UTC');
     await expect(page.locator('.candle').first()).toBeVisible();
     await expect(page.locator('[data-slot="disclaimer"]')).toHaveText(copy.disclaimer.full);
+    // Controls that need JS stay out of the way.
+    await expect(page.locator('.toggles')).toBeHidden();
+    await expect(page.getByRole('button', { name: copy.oracle.askAgain })).toBeHidden();
   });
 });

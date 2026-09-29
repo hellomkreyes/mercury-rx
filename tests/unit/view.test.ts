@@ -71,3 +71,10 @@ test('candles mark each of this year’s cycles', () => {
   assert.match(html.candles!, /data-state="passed".*Feb 26 – Mar 20.*Pisces · passed/);
   assert.match(html.candles!, /data-state="now".*Oct 24 – Nov 13.*Scorpio · retrograde now/);
 });
+
+test('the checklist lists the phase’s four items, filled and escaped', () => {
+  const { html, slots } = view('2026-10-12T12:00Z');
+  assert.equal(html.checklist!.match(/<li>/g)?.length, 4);
+  assert.match(html.checklist!, /Sign contracts before Oct 24/);
+  assert.equal(slots['checklist-count'], '0 of 4 sealed');
+});
