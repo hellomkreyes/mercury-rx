@@ -2,6 +2,7 @@
 // Shared by the build-time bake (UTC) and the browser (visitor's local time).
 import type { Cycle, Edge, Phase, PhaseState } from './phase.ts';
 import type copyJson from './content/copy.json';
+import { isBackward, orbMarkup } from './orbit.ts';
 
 export type Copy = typeof copyJson;
 export type Slots = Record<string, string>;
@@ -123,8 +124,9 @@ export function viewModel(
     'countdown-unit': plural.select(countdown) === 'one' ? text.countdown.one : text.countdown.other,
     sub: f(text.sub),
     today: date(now.toISOString()),
-    // The static orb frame shows a backslide; PR 5 makes this live with the animation.
-    'orb-status': copy.orb.backward,
+    // What Mercury is really doing right now; the animation takes over when motion is on.
+    'orb-date': date(now.toISOString()),
+    'orb-status': isBackward(now.getTime()) ? copy.orb.backward : copy.orb.forward,
     'oracle-lead': text.oracle.lead,
     'oracle-em': text.oracle.em,
     'oracle-card': f(text.oracle.cards[0] ?? ''),
@@ -157,5 +159,5 @@ export function viewModel(
       `<li><label class="chk"><input type="checkbox" data-index="${i}"><span class="box" aria-hidden="true">${CHECK}</span><span class="txt">${escapeHtml(f(item))}</span></label></li>`,
   );
 
-  return { phase, slots, html: { candles: candles.join(''), checklist: checklist.join('') }, progress, vars };
+  return { phase, slots, html: { candles: candles.join(''), checklist: checklist.join(''), 'orb-sky': orbMarkup(now.getTime()) }, progress, vars };
 }

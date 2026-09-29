@@ -95,5 +95,7 @@ test.describe('without JavaScript', () => {
     // Controls that need JS stay out of the way.
     await expect(page.locator('.toggles')).toBeHidden();
     await expect(page.getByRole('button', { name: copy.oracle.askAgain })).toBeHidden();
+    // …and nothing moves.
+    await expect(page.locator('.chip-dot')).toHaveCSS('animation-name', 'none');
   });
 });

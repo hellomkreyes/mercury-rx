@@ -78,3 +78,9 @@ test('the checklist lists the phase’s four items, filled and escaped', () => {
   assert.match(html.checklist!, /Sign contracts before Oct 24/);
   assert.equal(slots['checklist-count'], '0 of 4 sealed');
 });
+
+test('the orb caption tells the truth about today', () => {
+  assert.equal(view('2026-11-01T12:00Z').slots['orb-status'], copy.orb.backward);
+  assert.equal(view('2026-10-12T12:00Z').slots['orb-status'], copy.orb.forward);
+  assert.equal(view('2026-11-01T12:00Z').slots['orb-date'], 'Nov 1');
+});

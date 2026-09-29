@@ -5,22 +5,31 @@
     inset: 0;
     z-index: -1;
     pointer-events: none;
+    contain: strict; /* keeps the twinkling star layers clipped to the viewport */
   }
 
-  /* Pixel stars: one element, many shadows (a single paint layer). */
-  .sky::before {
-    content: '';
+  /* Pixel stars: three layers of box-shadow stars, so they can twinkle in groups (motion.css). */
+  .stars {
     position: absolute;
     inset-block-start: 0;
     inset-inline-start: 0;
     inline-size: 4px;
     block-size: 4px;
-    background: var(--star-a);
+  }
+  .stars-a {
     box-shadow:
-      10rem 2.5rem var(--star-a), 15rem 8rem var(--star-b), 5.5rem 19rem #fff, 41rem 2rem var(--star-b),
-      44rem 5.5rem var(--star-a), 76rem 4rem #fff, 81rem 9.5rem var(--star-b), 70rem 1.25rem var(--star-a),
-      40rem 41rem var(--star-b), 7rem 39rem var(--star-a), 81rem 40rem #fff, 26rem 2rem #fff,
-      60rem 2.5rem var(--star-b), 83rem 20rem var(--star-a), 2rem 60rem #fff, 22rem 52rem var(--star-b);
+      10rem 2.5rem var(--star-a), 44rem 5.5rem var(--star-a), 40rem 41rem var(--star-b),
+      81rem 40rem #fff, 83rem 20rem var(--star-a), 22rem 52rem var(--star-b);
+  }
+  .stars-b {
+    box-shadow:
+      15rem 8rem var(--star-b), 76rem 4rem #fff, 70rem 1.25rem var(--star-a),
+      7rem 39rem var(--star-a), 60rem 2.5rem var(--star-b);
+  }
+  .stars-c {
+    box-shadow:
+      5.5rem 19rem #fff, 41rem 2rem var(--star-b), 81rem 9.5rem var(--star-b),
+      26rem 2rem #fff, 2rem 60rem #fff;
   }
 
   /* Blue pixel pillars framing the realm on wide screens. */

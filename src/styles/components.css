@@ -104,7 +104,8 @@
 
   /* Orb */
   .orb { display: grid; justify-items: center; gap: 0.5rem; }
-  .orb-svg { inline-size: min(100%, 20rem); block-size: auto; border-radius: 50%; }
+  /* Paint containment: the 12 fps orb repaints only itself. */
+  .orb-svg { inline-size: min(100%, 20rem); block-size: auto; border-radius: 50%; contain: layout paint; }
   .orb-ball { fill: var(--orb); }
   .orb-shine { fill: var(--orb-shine); }
   .ring { fill: none; stroke-width: 3; stroke-dasharray: 6 6; }
@@ -118,6 +119,7 @@
   .earth-core { fill: var(--orb); }
   .mercury { fill: var(--mercury); }
   .orb-status { color: var(--pc); text-align: center; }
+  .orb-date { display: block; color: var(--muted); }
 
   /* Oracle dialog */
   .oracle {

@@ -28,8 +28,7 @@ export function initPrefs(root: Document = document): void {
     const p = current();
     if (p.hc) html.dataset.theme = 'hc';
     else delete html.dataset.theme;
-    if (p.still) html.dataset.motion = 'off';
-    else delete html.dataset.motion;
+    html.dataset.motion = p.still ? 'off' : 'on';
     for (const b of buttons) b.setAttribute('aria-pressed', String(p[PREF_FOR[b.dataset.toggle ?? '']!]));
   };
 

@@ -1,0 +1,29 @@
+/* Every animation, and only when motion is on: html[data-motion='on'] is set by the <head> script,
+   so paused motion, reduced-motion OS settings and no-JS visitors all get a still page.
+   Stepped opacity only (compositor-friendly), and nothing flashes faster than once a second. */
+@layer components {
+  @keyframes blink { 50% { opacity: 0; } }
+  @keyframes twinkle { 50% { opacity: 0.3; } }
+  @keyframes flicker { 50% { background-size: 0.375rem 0.75rem, 100% 0.25rem, 100% 2.5rem; } }
+  @keyframes type-in { from { opacity: 0; } }
+
+  [data-motion='on'] {
+    .chip-dot { animation: blink 1s steps(1) infinite; }
+    .choice .cur { animation: blink 1s steps(1) infinite; }
+
+    .stars { will-change: opacity; animation: twinkle steps(1) infinite; }
+    .stars-a { animation-duration: 2.4s; }
+    .stars-b { animation-duration: 3.1s; animation-delay: -0.8s; }
+    .stars-c { animation-duration: 3.7s; animation-delay: -1.9s; }
+
+    /* The oracle's typewriter: each character appears on its frame, 12 per second (oracle.ts). */
+    .tw > span { animation: type-in 1ms calc(var(--f) * 1s / var(--fps)) both; }
+    .tw.tw-done > span { animation: none; }
+  }
+
+  @media (forced-colors: none) {
+    [data-motion='on'] .candle:is([data-state='next'], [data-state='now'], [data-state='after'])::before {
+      animation: flicker 1.2s steps(1) infinite;
+    }
+  }
+}
