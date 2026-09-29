@@ -130,6 +130,8 @@
     scroll-margin-block-start: 1rem;
   }
   .oracle:focus { outline: none; }
+  .oracle > [data-view] { display: grid; gap: 0.75rem; }
+  #checklist-heading:focus { outline: none; }
   .oracle-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; }
   .oracle-heading { font-family: var(--font-display); font-size: 2rem; font-weight: 400; line-height: 1.05; letter-spacing: 0.02em; }
   .oracle-count { color: var(--dialog-muted); }
@@ -149,13 +151,47 @@
     font-size: 1.875rem;
     cursor: pointer;
   }
+  /* The cursor rests on the first choice until the pointer or keyboard picks another. */
   .choice .cur { inline-size: 0.625rem; visibility: hidden; }
-  .choice:first-child .cur,
+  .choices:not(:has(.choice:hover, .choice:focus-visible)) .choice:first-child .cur,
   .choice:hover .cur,
   .choice:focus-visible .cur { visibility: visible; }
   .choice:hover, .choice:focus-visible { color: var(--gold); }
   .choice:focus-visible { outline: 3px dashed var(--focus); outline-offset: 4px; }
   .choice:active { translate: 0 2px; }
+
+  /* Heed the stars: pixel checkboxes. The real input sits on top of the box, invisible but clickable. */
+  .checklist { display: grid; gap: 0.5rem; }
+  .chk { position: relative; display: flex; align-items: center; gap: 0.75rem; min-block-size: 2.75rem; font-size: 1.5rem; line-height: 1.05; cursor: pointer; }
+  .chk input { position: absolute; inset-inline-start: 0; inline-size: 1.75rem; block-size: 1.75rem; margin: 0; opacity: 0; cursor: pointer; }
+  .box { flex: none; display: grid; place-items: center; inline-size: 1.75rem; block-size: 1.75rem; border: 3px solid var(--dialog-text); }
+  .box svg { inline-size: 1.125rem; color: var(--gold); visibility: hidden; }
+  .chk input:checked + .box svg { visibility: visible; }
+  .chk input:checked ~ .txt { color: var(--dialog-muted); text-decoration: line-through; text-decoration-thickness: 2px; }
+  .chk:hover .box { border-color: var(--gold); }
+  .chk input:focus-visible + .box { outline: 3px dashed var(--focus); outline-offset: 3px; }
+
+  /* Toggletip */
+  .tip { display: inline-flex; align-items: center; gap: 0.25rem; }
+  .tip-btn {
+    display: grid;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    border: 0;
+    background: none;
+    color: var(--dialog-text);
+    cursor: pointer;
+  }
+  .tip-btn svg { inline-size: 1.25rem; }
+  .tip-btn:hover, .tip-btn[aria-expanded='true'] { color: var(--gold); }
+  .tip-text { padding: 0.5rem 0.75rem; border: 3px dashed var(--dialog-text); font-size: 1.25rem; }
+
+  /* Oracle ⇄ checklist swap: a stepped cross-fade, skipped when motion is paused (oracle.ts). */
+  .oracle { view-transition-name: oracle; }
+  ::view-transition-group(oracle),
+  ::view-transition-old(oracle),
+  ::view-transition-new(oracle) { animation-duration: 0.24s; animation-timing-function: steps(4, end); }
 
   /* Grimoire */
   .grimoire { background: var(--panel-2); border: 4px solid var(--decor-border); }

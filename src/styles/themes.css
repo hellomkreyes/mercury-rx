@@ -24,6 +24,7 @@
     [data-phase='retrograde'] .seg[data-seg='preshadow'],
     [data-phase='postshadow'] .seg[data-seg='preshadow'],
     [data-phase='postshadow'] .seg[data-seg='retrograde'] { forced-color-adjust: none; background: GrayText; }
+    .tip-text { border-color: CanvasText; }
     .candle::before { forced-color-adjust: none; background: linear-gradient(GrayText, GrayText) bottom / 100% 2.5rem no-repeat; }
     .candle:is([data-state='next'], [data-state='now'], [data-state='after'])::before {
       background:
