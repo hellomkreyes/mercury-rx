@@ -1,9 +1,10 @@
 /* Element defaults, type scale and utilities. Mobile-first; rem everywhere so text zooms to 200%. */
 @layer base {
   :root {
-    --font-display: 'Jersey 10', 'Courier New', monospace;
-    --font-label: 'Silkscreen', 'Courier New', monospace;
-    --font-body: 'VT323', ui-monospace, Menlo, Consolas, monospace;
+    --font-display: 'Jersey 10', 'Jersey 10 fallback', monospace;
+    --font-display-caps: 'Jersey 10', 'Jersey 10 caps fallback', monospace;
+    --font-label: 'Silkscreen', 'Silkscreen fallback', monospace;
+    --font-body: 'VT323', 'VT323 fallback', monospace;
     --gap: 1rem;
     --pixel: 0.25rem;
   }

@@ -54,7 +54,7 @@
   }
   .status-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 0.25rem 1rem; }
   .phase-label {
-    font-family: var(--font-display);
+    font-family: var(--font-display-caps);
     font-size: 3.5rem;
     line-height: 1;
     text-transform: uppercase;
@@ -104,7 +104,8 @@
 
   /* Orb */
   .orb { display: grid; justify-items: center; gap: 0.5rem; }
-  .orb-svg { inline-size: min(100%, 20rem); block-size: auto; border-radius: 50%; }
+  /* Paint containment: the 12 fps orb repaints only itself. */
+  .orb-svg { inline-size: min(100%, 20rem); block-size: auto; border-radius: 50%; contain: layout paint; }
   .orb-ball { fill: var(--orb); }
   .orb-shine { fill: var(--orb-shine); }
   .ring { fill: none; stroke-width: 3; stroke-dasharray: 6 6; }
@@ -118,6 +119,7 @@
   .earth-core { fill: var(--orb); }
   .mercury { fill: var(--mercury); }
   .orb-status { color: var(--pc); text-align: center; }
+  .orb-date { display: block; color: var(--muted); }
 
   /* Oracle dialog */
   .oracle {

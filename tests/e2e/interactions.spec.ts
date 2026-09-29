@@ -27,12 +27,12 @@ test.describe('display toggles', () => {
     await contrast.click();
     await motion.click();
     await expect(html(page)).toHaveAttribute('data-theme', 'hc');
-    await expect(html(page)).not.toHaveAttribute('data-motion', 'off');
+    await expect(html(page)).toHaveAttribute('data-motion', 'on');
 
     // The choice survives a reload and beats the OS.
     await page.reload();
     await expect(html(page)).toHaveAttribute('data-theme', 'hc');
-    await expect(html(page)).not.toHaveAttribute('data-motion', 'off');
+    await expect(html(page)).toHaveAttribute('data-motion', 'on');
     await expect(contrast).toHaveAttribute('aria-pressed', 'true');
     await expect(motion).toHaveAttribute('aria-pressed', 'false');
   });
@@ -52,13 +52,14 @@ test.describe('oracle', () => {
     const ask = button(page, copy.oracle.askAgain);
     const card = page.locator('[data-slot="oracle-card"]');
     await expect(card).toHaveAttribute('aria-live', 'polite');
+    const heard = card.locator('.visually-hidden'); // what screen readers get; the visible copy types out
 
     // Keyboard, since Safari doesn't focus buttons on click.
     await ask.focus();
     for (let i = 1; i <= cards.length; i++) {
       await page.keyboard.press('Enter');
       const n = i % cards.length;
-      await expect(card).toHaveText(cards[n]!);
+      await expect(heard).toHaveText(cards[n]!);
       await expect(page.locator('[data-slot="oracle-count"]')).toHaveText(`Card ${n + 1} of ${cards.length}`);
     }
     await expect(ask).toBeFocused();

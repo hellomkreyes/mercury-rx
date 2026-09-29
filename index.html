@@ -6,14 +6,13 @@
     <title>Mercury RX · The Hidden Realm</title>
     <meta name="description" content="Is Mercury in the microwave? Enter the Hidden Realm: a pixel-art tracker for Mercury's retrograde and shadow periods.">
     <meta name="theme-color" content="#06030d">
-    <link rel="preload" href="/fonts/Jersey10-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Applies saved (or OS) contrast and motion prefs before first paint. Same rules as src/prefs.ts. -->
-    <script>(function(){var d=document.documentElement,p={};try{p=JSON.parse(localStorage.getItem('mrx:prefs'))||{}}catch(e){}var m=function(q){return matchMedia(q).matches};if(p.hc!=null?p.hc:m('(prefers-contrast: more)'))d.dataset.theme='hc';if(p.still!=null?p.still:m('(prefers-reduced-motion: reduce)'))d.dataset.motion='off'})()</script>
+    <script>(function(){var d=document.documentElement,p={};try{p=JSON.parse(localStorage.getItem('mrx:prefs'))||{}}catch(e){}var m=function(q){return matchMedia(q).matches};if(p.hc!=null?p.hc:m('(prefers-contrast: more)'))d.dataset.theme='hc';d.dataset.motion=(p.still!=null?p.still:m('(prefers-reduced-motion: reduce)'))?'off':'on'})()</script>
   </head>
   <body>
     <!-- Every data-slot / data-html is filled at build time (UTC) and again in the browser (local time). -->
     <a class="skip" href="#oracle" data-slot="skip"></a>
-    <div class="sky" aria-hidden="true"></div>
+    <div class="sky" aria-hidden="true"><span class="stars stars-a"></span><span class="stars stars-b"></span><span class="stars stars-c"></span></div>
 
     <header class="masthead">
       <h1 class="title" data-slot="site-title"></h1>
@@ -61,7 +60,7 @@
 
       <section class="orb" aria-labelledby="orb-heading">
         <h2 id="orb-heading" class="visually-hidden" data-slot="orb-heading"></h2>
-        <!-- Static frame, mid-backslide. PR 5 animates it when motion is allowed. -->
+        <!-- Baked at build time, re-drawn for the visitor's now, animated when motion is on (src/motion.ts). -->
         <svg class="orb-svg" viewBox="0 0 312 312" role="img" aria-labelledby="orb-alt">
           <title id="orb-alt">Crystal ball: Earth and Mercury both orbit the Sun. A line of sight from Earth through Mercury marks where Mercury appears against the stars; when Mercury laps Earth, that spot slides backward, which is retrograde motion.</title>
           <g class="orb-glass" transform="scale(12)">
@@ -69,18 +68,14 @@
             <path class="orb-shine" d="M8 2h3v1H8zM6 3h2v1H6zM5 4h2v1H5zM4 5h1v1H4zM3 6h1v2H3zM2 8h1v2H2z"/>
           </g>
           <circle class="ring ring-stars" cx="156" cy="156" r="140"/>
-          <circle class="ring ring-mercury" cx="156" cy="156" r="58"/>
           <circle class="ring ring-earth" cx="156" cy="156" r="112"/>
           <path class="sun" d="M144 144h24v24h-24zM150 138h12v36h-12zM138 150h36v12h-36z"/>
-          <line class="sightline" x1="189" y1="263" x2="122" y2="20"/>
-          <rect class="spark" x="90" y="28" width="4" height="4" opacity=".35"/>
-          <rect class="spark" x="104" y="22" width="5" height="5" opacity=".6"/>
-          <rect class="spark" x="118" y="16" width="7" height="7"/>
-          <rect class="earth" x="178" y="252" width="22" height="22"/>
-          <rect class="earth-core" x="185" y="259" width="8" height="8"/>
-          <rect class="mercury" x="169" y="203" width="14" height="14"/>
+          <!-- Mercury's true orbit, sightline and sprites at today's real positions (src/orbit.ts). -->
+          <g class="orb-sky" data-html="orb-sky"></g>
         </svg>
-        <p class="orb-status label" data-slot="orb-status"></p>
+        <!-- The visible caption follows the animation's simulated date; screen readers get the real status below. -->
+        <p class="orb-status label" aria-hidden="true"><span class="orb-date" data-slot="orb-date" data-orb="date"></span><span data-slot="orb-status" data-orb="status"></span></p>
+        <p class="visually-hidden" data-slot="orb-status"></p>
       </section>
 
       <section id="oracle" class="panel oracle" aria-labelledby="oracle-heading" tabindex="-1">

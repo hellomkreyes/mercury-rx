@@ -6,6 +6,38 @@ import { load, save } from './storage.ts';
 
 type ViewName = 'oracle' | 'checklist';
 
+const FPS = 12;
+const MAX_FRAMES = 12; // a card finishes typing within a second
+
+/**
+ * Screen readers get the whole card at once (visually hidden); the visible copy types out in 12 fps steps.
+ * The reveal is pure CSS (--f = frame index), so Pause motion or any key or click finishes it instantly.
+ */
+function typewrite(el: HTMLElement, text: string): void {
+  const doc = el.ownerDocument;
+  const heard = doc.createElement('span');
+  heard.className = 'visually-hidden';
+  heard.textContent = text;
+  const seen = doc.createElement('span');
+  seen.className = 'tw';
+  seen.setAttribute('aria-hidden', 'true');
+  const chars = [...text];
+  const perFrame = Math.max(1, Math.ceil(chars.length / MAX_FRAMES));
+  seen.append(
+    ...chars.map((c, i) => {
+      const s = doc.createElement('span');
+      s.textContent = c;
+      s.style.setProperty('--f', String(Math.floor(i / perFrame)));
+      return s;
+    }),
+  );
+  seen.style.setProperty('--fps', String(FPS));
+  el.replaceChildren(heard, seen);
+  const finish = () => seen.classList.add('tw-done');
+  doc.addEventListener('keydown', finish, { once: true });
+  doc.addEventListener('pointerdown', finish, { once: true });
+}
+
 export function initOracle(view: View, copy: Copy, cycles: readonly Cycle[], now: Date, root: Document = document): void {
   const section = root.querySelector<HTMLElement>('#oracle');
   if (!section) return;
@@ -17,7 +49,7 @@ export function initOracle(view: View, copy: Copy, cycles: readonly Cycle[], now
   let card = 0;
   $('[data-action="ask"]').addEventListener('click', () => {
     card = (card + 1) % cards.length;
-    $('[data-slot="oracle-card"]').textContent = fill(cards[card]!, view.vars);
+    typewrite($('[data-slot="oracle-card"]'), fill(cards[card]!, view.vars));
     $('[data-slot="oracle-count"]').textContent = fill(copy.oracle.card, { n: card + 1, total: cards.length });
   });
 
