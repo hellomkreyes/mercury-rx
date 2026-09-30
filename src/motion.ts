@@ -1,4 +1,4 @@
-// Starts and stops the orb animation. GSAP is fetched only when motion is on and the orb is visible.
+// Starts and stops the orb animation. GSAP is fetched only when motion is on, the veil is lifted and the orb is visible.
 import type { Copy } from './view.ts';
 import type { OrbAnimation } from './orb-anim.ts';
 
@@ -22,7 +22,8 @@ export function initMotion(now: Date, copy: Copy, root: Document = document): vo
   if (!svg || !date || !status || !('IntersectionObserver' in window)) return;
 
   let visible = false;
-  const wanted = () => visible && html.dataset.motion === 'on';
+  // The orb waits behind the veil (src/veil.ts): GSAP loads once someone peers in.
+  const wanted = () => visible && html.dataset.motion === 'on' && html.dataset.veil === 'off';
 
   const sync = async () => {
     if (!wanted()) return (await orb)?.pause();
@@ -39,5 +40,5 @@ export function initMotion(now: Date, copy: Copy, root: Document = document): vo
     visible = entry?.isIntersecting ?? false;
     void sync();
   }).observe(svg);
-  new MutationObserver(() => void sync()).observe(html, { attributes: true, attributeFilter: ['data-motion'] });
+  new MutationObserver(() => void sync()).observe(html, { attributes: true, attributeFilter: ['data-motion', 'data-veil'] });
 }

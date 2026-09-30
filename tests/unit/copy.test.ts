@@ -46,3 +46,9 @@ test('the footer credit and the 404 page have their copy', () => {
   for (const value of [copy.footer.name, copy.footer.collab, ...Object.values(copy.notFound), copy.site.titleMain, copy.site.titleSub]) assert.ok(value.trim());
   assert.equal(`${copy.site.titleMain} · ${copy.site.titleSub}`, copy.site.title);
 });
+
+test('the veil explains the science and names its call to action', () => {
+  for (const value of Object.values(copy.veil)) assert.ok(value.trim());
+  assert.match(copy.veil.why, /116 days/);
+  assert.equal(copy.veil.cta, 'Peer into the crystal ball');
+});

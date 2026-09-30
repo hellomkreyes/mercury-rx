@@ -113,9 +113,99 @@
   [data-phase='postshadow'] .seg[data-seg='retrograde'] { background: var(--track); }
 
   /* Orb */
-  .orb { display: grid; justify-items: center; gap: 0.5rem; }
+  .orb { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 0.5rem; }
   /* Paint containment: the 12 fps orb repaints only itself. */
   .orb-svg { inline-size: 100%; block-size: auto; border-radius: 50%; contain: layout paint; }
+
+  /* The veil (src/veil.ts). Without JS it is a plain card above the orb; with JS and html[data-veil='on']
+     it shares the orb's grid cell, clouds it with pixel mist and waits for "Peer into the crystal ball". */
+  .veil { inline-size: min(100%, 30rem); }
+  .veil-mist { display: none; }
+  .veil-card {
+    display: grid;
+    gap: 0.625rem;
+    padding: 1.25rem 1.375rem;
+    border: 4px solid var(--pink);
+    background: var(--panel);
+    box-shadow: 0 0 0 4px var(--bg), 6px 6px 0 4px var(--pillar);
+  }
+  .veil-title { margin: 0; font-family: var(--font-display); font-size: 2.375rem; font-weight: 400; line-height: 0.9; color: var(--pink); }
+  .veil-title:focus { outline: none; }
+  .veil-why { font-size: 1.3125rem; line-height: 1.1; }
+  .veil-legend { display: grid; gap: 0.25rem; font-size: 1.1875rem; line-height: 1.05; }
+  .veil-legend li { display: flex; align-items: center; gap: 0.625rem; }
+  .sw { flex: none; inline-size: 0.75rem; block-size: 0.75rem; background: var(--sw); }
+  .sw-sun { --sw: var(--gold); clip-path: polygon(33% 0, 67% 0, 67% 33%, 100% 33%, 100% 67%, 67% 67%, 67% 100%, 33% 100%, 33% 67%, 0 67%, 0 33%, 33% 33%); }
+  .sw-mercury { --sw: var(--mercury); }
+  .sw-earth { --sw: var(--earth); }
+  .sw-sight { inline-size: 1.125rem; block-size: 0; border-block-start: 3px dashed var(--gold); background: none; }
+  .sw-spark { --sw: var(--pink); inline-size: 0.5rem; block-size: 0.5rem; margin-inline: 0.125rem; }
+  .veil-cta {
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-block-size: 2.75rem;
+    margin-block-start: 0.25rem;
+    padding: 0 1.125rem;
+    border: 4px solid var(--gold);
+    background: var(--bg);
+    box-shadow: 4px 4px 0 var(--pink);
+    color: var(--gold);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1;
+    text-align: start;
+    cursor: pointer;
+  }
+  .veil-cta .cur { inline-size: 0.625rem; }
+  .veil-cta:hover { background: var(--gold); color: var(--on-accent); }
+  .veil-cta:focus-visible { outline: 3px dashed var(--focus); outline-offset: 4px; }
+  .veil-cta:active { translate: 0 2px; }
+  .veil-reopen {
+    min-block-size: 2.75rem;
+    padding: 0 0.5rem;
+    border: 0;
+    background: none;
+    color: var(--heading);
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-decoration: underline 2px;
+    text-underline-offset: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .veil-reopen:hover { color: var(--gold); }
+  .orb-svg:focus { outline: none; }
+  .orb-svg:focus-visible { outline: 3px dashed var(--focus); outline-offset: 4px; }
+
+  [data-veil='on'] .orb-stage,
+  [data-veil='on'] .veil,
+  [data-veil='lifting'] .orb-stage,
+  [data-veil='lifting'] .veil { grid-row: 1; grid-column: 1; }
+  [data-veil='on'] .veil,
+  [data-veil='lifting'] .veil {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    align-self: start;
+    min-block-size: 100%;
+    padding: 12% 5% 6%;
+  }
+  [data-veil='on'] .veil-mist,
+  [data-veil='lifting'] .veil-mist {
+    display: block;
+    position: absolute;
+    inset: 4% 4% 0;
+    background: repeating-conic-gradient(var(--bg) 0 25%, var(--gate) 0 50%) 0 0 / 8px 8px;
+    opacity: 0.55;
+  }
+  [data-veil='on'] .veil-card,
+  [data-veil='lifting'] .veil-card { position: relative; inline-size: 100%; }
+  [data-veil='on'] .orb-float { opacity: 0.35; }
+  [data-veil='off'] .veil { display: none; }
 
   /* The realm gate: arch behind the orb, pedestal below, candles either side. Sized in stage widths (cqi). */
   .orb-stage { container-type: inline-size; position: relative; inline-size: min(100%, 30rem); aspect-ratio: 480 / 540; }
@@ -300,6 +390,7 @@
   .credit a:hover { color: var(--gold); }
 
   @media (min-width: 40rem) {
+    .veil-cta { font-size: 1.875rem; }
     .tip-text { justify-self: end; max-inline-size: 28rem; }
   }
 
