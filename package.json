@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.56.0",
     "@types/node": "^22.18.0",
     "astronomy-engine": "^2.1.19",
