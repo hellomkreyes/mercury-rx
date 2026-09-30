@@ -94,7 +94,8 @@ export function viewModel(
 
   const slots: Slots = {
     // Static copy
-    'site-title': copy.site.title,
+    'site-title-main': copy.site.titleMain,
+    'site-title-sub': copy.site.titleSub,
     skip: copy.site.skip,
     'toggles-group': copy.toggles.group,
     'toggle-motion': copy.toggles.motion,
@@ -117,6 +118,13 @@ export function viewModel(
     'why-no-reset': copy.oracle.whyNoReset,
     'quest-badge': copy.eggs.quest.badge,
     disclaimer: copy.disclaimer.full,
+    'footer-year': copy.footer.year,
+    'footer-name': copy.footer.name,
+    'footer-collab': copy.footer.collab,
+    'not-found-title': copy.notFound.title,
+    'not-found-lead': copy.notFound.lead,
+    'not-found-body': copy.notFound.body,
+    'not-found-back': copy.notFound.back,
     // Phase copy
     'phase-label': text.label,
     chip: text.chip,

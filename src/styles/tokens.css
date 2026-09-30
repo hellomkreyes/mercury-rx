@@ -42,6 +42,11 @@
     --pillar: #3434d8;
     --star-a: #ff7ae0;
     --star-b: #5b6bff;
+    --gate: #1c1a9e;
+    --pedestal: #4b2a8a;
+    --wax-a: #6d3fd1;
+    --wax-b: #4b3fd6;
+    --flame-core: #fff4c9;
 
     /* Phase accents; --pc is the one in use */
     --pc-direct: #7ee0b0;

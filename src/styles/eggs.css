@@ -101,6 +101,15 @@
     text-align: center;
   }
 
+  /* Desktop: The Magician gets room to breathe, capped by height so short laptop screens still fit it. */
+  @media (min-width: 64rem) {
+    .summon { inline-size: min(34rem, 100% - 2rem); gap: 1rem; padding: 1.75rem; }
+    .tarot { inline-size: min(16rem, calc((100dvh - 21rem) * 0.625)); }
+    .summon-text { font-size: 1.75rem; }
+    .tarot-num { font-size: 2rem; }
+    .tarot-name { font-size: 1rem; }
+  }
+
   @media (forced-colors: active) {
     .quest, .summon, .toast, .tarot-face { border-color: CanvasText; box-shadow: none; }
     .tarot-back { background: Canvas; }

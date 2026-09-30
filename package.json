@@ -10,14 +10,16 @@
   "scripts": {
     "dev": "vite",
     "cycles": "node scripts/build-cycles.ts",
-    "build": "npm run cycles && vite build && node scripts/check-size.ts",
+    "build": "npm run cycles && vite build && node scripts/not-found.ts && node scripts/og.ts && node scripts/check-size.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "node --test \"tests/unit/**/*.test.ts\"",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "lighthouse": "lhci autorun"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.0",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.56.0",
     "@types/node": "^22.18.0",
     "astronomy-engine": "^2.1.19",

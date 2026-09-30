@@ -6,6 +6,8 @@
   @keyframes twinkle { 50% { opacity: 0.3; } }
   @keyframes flicker { 50% { background-size: 0.375rem 0.75rem, 100% 0.25rem, 100% 2.5rem; } }
   @keyframes type-in { from { opacity: 0; } }
+  @keyframes bob { 50% { translate: 0 -12px; } }
+  @keyframes flame { 50% { transform: scaleY(0.8); } }
 
   [data-motion='on'] {
     .chip-dot { animation: blink 1s steps(1) infinite; }
@@ -19,6 +21,12 @@
     /* The oracle's typewriter: each character appears on its frame, 12 per second (oracle.ts). */
     .tw > span { animation: type-in 1ms calc(var(--f) * 1s / var(--fps)) both; }
     .tw.tw-done > span { animation: none; }
+
+    /* The orb hovers over its pedestal; the gate candles flicker, each on its own beat. */
+    .orb-float { animation: bob 4.5s steps(9) infinite; }
+    .flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flame 0.9s steps(2) infinite; }
+    .d2 .flame { animation-delay: -0.3s; }
+    .d3 .flame { animation-delay: -0.6s; }
   }
 
   @media (forced-colors: none) {

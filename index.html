@@ -6,6 +6,20 @@
     <title>Mercury RX · The Hidden Realm</title>
     <meta name="description" content="Is Mercury in the microwave? Enter the Hidden Realm: a pixel-art tracker for Mercury's retrograde and shadow periods.">
     <meta name="theme-color" content="#06030d">
+    <link rel="canonical" href="https://rx.chibimuere.com/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- Link previews. og.png is rendered from today's sky at build time (scripts/og.ts); ?v= is the build date. -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rx.chibimuere.com/">
+    <meta property="og:title" content="Mercury RX · The Hidden Realm">
+    <meta property="og:description" content="Is Mercury in the microwave? Enter the Hidden Realm: a pixel-art tracker for Mercury's retrograde and shadow periods.">
+    <meta property="og:image" content="https://rx.chibimuere.com/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Mercury RX, The Hidden Realm: this week's Mercury phase beside a pixel-art scrying orb.">
+    <meta name="twitter:card" content="summary_large_image">
     <!-- Applies saved (or OS) contrast and motion prefs before first paint. Same rules as src/prefs.ts. -->
     <script>(function(){var d=document.documentElement,p={};try{p=JSON.parse(localStorage.getItem('mrx:prefs'))||{}}catch(e){}var m=function(q){return matchMedia(q).matches};if(p.hc!=null?p.hc:m('(prefers-contrast: more)'))d.dataset.theme='hc';d.dataset.motion=(p.still!=null?p.still:m('(prefers-reduced-motion: reduce)'))?'off':'on'})()</script>
   </head>
@@ -15,7 +29,7 @@
     <div class="sky" aria-hidden="true"><span class="stars stars-a"></span><span class="stars stars-b"></span><span class="stars stars-c"></span></div>
 
     <header class="masthead">
-      <h1 class="title" data-slot="site-title"></h1>
+      <h1 class="title"><span class="title-main" data-slot="site-title-main"></span><span class="visually-hidden"> · </span><span class="title-sub" data-slot="site-title-sub"></span></h1>
       <p class="chip">
         <span class="chip-dot" aria-hidden="true"></span>
         <span class="chip-main" data-slot="chip"></span>
@@ -60,19 +74,28 @@
 
       <section class="orb" aria-labelledby="orb-heading">
         <h2 id="orb-heading" class="visually-hidden" data-slot="orb-heading"></h2>
-        <!-- Baked at build time, re-drawn for the visitor's now, animated when motion is on (src/motion.ts). -->
-        <svg class="orb-svg" viewBox="0 0 312 312" role="img" aria-labelledby="orb-alt">
-          <title id="orb-alt">Crystal ball: Earth and Mercury both orbit the Sun. A line of sight from Earth through Mercury marks where Mercury appears against the stars; when Mercury laps Earth, that spot slides backward, which is retrograde motion.</title>
-          <g class="orb-glass" transform="scale(12)">
-            <path class="orb-ball" d="M11 0h4v1h-4zM8 1h10v1H8zM6 2h14v1H6zM5 3h16v1H5zM4 4h18v1H4zM3 5h20v1H3zM2 6h22v2H2zM1 8h24v3H1zM0 11h26v4H0zM1 15h24v3H1zM2 18h22v2H2zM3 20h20v1H3zM4 21h18v1H4zM5 22h16v1H5zM6 23h14v1H6zM8 24h10v1H8zM11 25h4v1h-4z"/>
-            <path class="orb-shine" d="M8 2h3v1H8zM6 3h2v1H6zM5 4h2v1H5zM4 5h1v1H4zM3 6h1v2H3zM2 8h1v2H2z"/>
-          </g>
-          <circle class="ring ring-stars" cx="156" cy="156" r="140"/>
-          <circle class="ring ring-earth" cx="156" cy="156" r="112"/>
-          <path class="sun" d="M144 144h24v24h-24zM150 138h12v36h-12zM138 150h36v12h-36z"/>
-          <!-- Mercury's true orbit, sightline and sprites at today's real positions (src/orbit.ts). -->
-          <g class="orb-sky" data-html="orb-sky"></g>
-        </svg>
+        <!-- The realm gate: arch, pedestal and candles are decoration (hidden in high contrast). -->
+        <div class="orb-stage">
+          <svg class="gate" viewBox="0 0 24 26" aria-hidden="true"><path class="gate-rim" d="M10 0h4v1h-4zM7 1h10v1h-10zM5 2h14v1h-14zM4 3h16v1h-16zM3 4h18v1h-18zM2 5h20v2h-20zM1 7h22v3h-22zM0 10h24v16h-24z"/><path class="gate-void" transform="translate(1 1) scale(0.9167 0.96)" d="M10 0h4v1h-4zM7 1h10v1h-10zM5 2h14v1h-14zM4 3h16v1h-16zM3 4h18v1h-18zM2 5h20v2h-20zM1 7h22v3h-22zM0 10h24v16h-24z"/><path class="gate-stars" d="M6 5h.4v.4h-.4zM17 4h.4v.4h-.4zM4 12h.4v.4h-.4zM19 10h.4v.4h-.4zM12 2.4h.4v.4h-.4zM21 17h.4v.4h-.4zM3 20h.4v.4h-.4z"/></svg>
+          <div class="orb-float">
+            <!-- Baked at build time, re-drawn for the visitor's now, animated when motion is on (src/motion.ts). -->
+            <svg class="orb-svg" viewBox="0 0 312 312" role="img" aria-labelledby="orb-alt">
+              <title id="orb-alt">Crystal ball: Earth and Mercury both orbit the Sun. A line of sight from Earth through Mercury marks where Mercury appears against the stars; when Mercury laps Earth, that spot slides backward, which is retrograde motion.</title>
+              <g class="orb-glass" transform="scale(12)">
+                <path class="orb-ball" d="M11 0h4v1h-4zM8 1h10v1H8zM6 2h14v1H6zM5 3h16v1H5zM4 4h18v1H4zM3 5h20v1H3zM2 6h22v2H2zM1 8h24v3H1zM0 11h26v4H0zM1 15h24v3H1zM2 18h22v2H2zM3 20h20v1H3zM4 21h18v1H4zM5 22h16v1H5zM6 23h14v1H6zM8 24h10v1H8zM11 25h4v1h-4z"/>
+                <path class="orb-shine" d="M8 2h3v1H8zM6 3h2v1H6zM5 4h2v1H5zM4 5h1v1H4zM3 6h1v2H3zM2 8h1v2H2z"/>
+              </g>
+              <circle class="ring ring-stars" cx="156" cy="156" r="140"/>
+              <circle class="ring ring-earth" cx="156" cy="156" r="112"/>
+              <path class="sun" d="M144 144h24v24h-24zM150 138h12v36h-12zM138 150h36v12h-36z"/>
+              <!-- Mercury's true orbit, sightline and sprites at today's real positions (src/orbit.ts). -->
+              <g class="orb-sky" data-html="orb-sky"></g>
+            </svg>
+          </div>
+          <svg class="pedestal" viewBox="0 0 10 3" aria-hidden="true"><path class="pedestal-stone" d="M2 0h6v1h-6zM1 1h8v1h-8zM0 2h10v1h-10z"/><path class="pedestal-glow" d="M2 0h6v.4h-6z"/></svg>
+          <div class="gate-candles gate-candles-l" aria-hidden="true"><svg class="candle-sprite big" viewBox="0 0 5 10"><g class="flame"><path class="flame-edge" d="M2 0h1v1h-1zM1 1h1v2h-1zM3 1h1v2h-1z"/><path class="flame-core" d="M2 1h1v2h-1z"/></g><path class="wax wax-a" d="M0 4h5v6h-5z"/><path class="wax-rim" d="M0 4h5v1h-5z"/></svg><svg class="candle-sprite small d2" viewBox="0 0 5 10"><g class="flame"><path class="flame-edge" d="M2 0h1v1h-1zM1 1h1v2h-1zM3 1h1v2h-1z"/><path class="flame-core" d="M2 1h1v2h-1z"/></g><path class="wax wax-b" d="M0 4h5v6h-5z"/><path class="wax-rim" d="M0 4h5v1h-5z"/></svg></div>
+          <div class="gate-candles gate-candles-r" aria-hidden="true"><svg class="candle-sprite small d3" viewBox="0 0 5 10"><g class="flame"><path class="flame-edge" d="M2 0h1v1h-1zM1 1h1v2h-1zM3 1h1v2h-1z"/><path class="flame-core" d="M2 1h1v2h-1z"/></g><path class="wax wax-b" d="M0 4h5v6h-5z"/><path class="wax-rim" d="M0 4h5v1h-5z"/></svg><svg class="candle-sprite big" viewBox="0 0 5 10"><g class="flame"><path class="flame-edge" d="M2 0h1v1h-1zM1 1h1v2h-1zM3 1h1v2h-1z"/><path class="flame-core" d="M2 1h1v2h-1z"/></g><path class="wax wax-a" d="M0 4h5v6h-5z"/><path class="wax-rim" d="M0 4h5v1h-5z"/></svg></div>
+        </div>
         <!-- The visible caption follows the animation's simulated date; screen readers get the real status below. -->
         <p class="orb-status label" aria-hidden="true"><span class="orb-date" data-slot="orb-date" data-orb="date"></span><span data-slot="orb-status" data-orb="status"></span></p>
         <p class="visually-hidden" data-slot="orb-status"></p>
@@ -137,6 +160,7 @@
 
     <footer class="footer">
       <p data-slot="disclaimer"></p>
+      <p class="credit"><span data-slot="footer-year"></span> <a href="https://chibimuere.com" data-slot="footer-name"></a> · <span data-slot="footer-collab"></span></p>
     </footer>
 
     <script type="module" src="/src/main.ts"></script>

@@ -1,13 +1,23 @@
 /* Components, in page order. Phase styling keys off html[data-phase]; no JS needed. */
 @layer components {
   /* Header */
-  .title {
-    font-family: var(--font-label);
-    font-size: 1.125rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    line-height: 1.3;
+  /* The lockup: Jersey 10 name over a gold Silkscreen subtitle (same as the share image). */
+  .title { display: grid; gap: 0.375rem; }
+  .title-main {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 400;
+    line-height: 0.8;
     color: var(--pink);
+    text-shadow: 3px 3px 0 var(--pillar);
+  }
+  .title-sub {
+    font-family: var(--font-label);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
   }
 
   .chip {
@@ -105,7 +115,29 @@
   /* Orb */
   .orb { display: grid; justify-items: center; gap: 0.5rem; }
   /* Paint containment: the 12 fps orb repaints only itself. */
-  .orb-svg { inline-size: min(100%, 20rem); block-size: auto; border-radius: 50%; contain: layout paint; }
+  .orb-svg { inline-size: 100%; block-size: auto; border-radius: 50%; contain: layout paint; }
+
+  /* The realm gate: arch behind the orb, pedestal below, candles either side. Sized in stage widths (cqi). */
+  .orb-stage { container-type: inline-size; position: relative; inline-size: min(100%, 30rem); aspect-ratio: 480 / 540; }
+  .gate { position: absolute; inset-block-start: 0; inset-inline-start: 0; inline-size: 100cqi; block-size: auto; }
+  .gate-rim { fill: var(--star-a); }
+  .gate-void { fill: var(--gate); }
+  .gate-stars { fill: #ffffff; }
+  .orb-float { position: absolute; inset-block-start: 20cqi; inset-inline-start: 17.5cqi; inline-size: 65cqi; }
+  .pedestal { position: absolute; inset-block-start: 86cqi; inset-inline-start: 29.15cqi; inline-size: 41.7cqi; block-size: auto; }
+  .pedestal-stone { fill: var(--pedestal); }
+  .pedestal-glow { fill: var(--star-a); }
+  .gate-candles { position: absolute; inset-block-end: 0; display: flex; align-items: flex-end; gap: 0.8cqi; }
+  .gate-candles-l { inset-inline-start: -2cqi; }
+  .gate-candles-r { inset-inline-end: -2cqi; }
+  .candle-sprite { block-size: auto; }
+  .candle-sprite.big { inline-size: 8.3cqi; }
+  .candle-sprite.small { inline-size: 6.25cqi; }
+  .flame-edge { fill: var(--gold); }
+  .flame-core { fill: var(--flame-core); }
+  .wax-a { fill: var(--wax-a); }
+  .wax-b { fill: var(--wax-b); }
+  .wax-rim { fill: var(--pink); }
   .orb-ball { fill: var(--orb); }
   .orb-shine { fill: var(--orb-shine); }
   .ring { fill: none; stroke-width: 3; stroke-dasharray: 6 6; }
@@ -152,6 +184,7 @@
     color: var(--dialog-text);
     font-family: var(--font-display);
     font-size: 1.875rem;
+    text-decoration: none;
     cursor: pointer;
   }
   /* The cursor rests on the first choice until the pointer or keyboard picks another. */
@@ -175,7 +208,7 @@
   .chk input:focus-visible + .box { outline: 3px dashed var(--focus); outline-offset: 3px; }
 
   /* Toggletip */
-  .tip { display: inline-flex; align-items: center; gap: 0.25rem; }
+  .tip { display: inline-flex; align-items: center; gap: 0.25rem; margin-inline-start: auto; } /* ⓘ always ends the row, where the bubble's tail points */
   .tip-btn {
     display: grid;
     place-items: center;
@@ -188,7 +221,35 @@
   }
   .tip-btn svg { inline-size: 1.125rem; } /* 9 pixels × 2px: whole pixels, crisp edges */
   .tip-btn:hover, .tip-btn[aria-expanded='true'] { color: var(--gold); }
-  .tip-text { padding: 0.5rem 0.75rem; border: 3px dashed var(--dialog-text); font-size: 1.25rem; }
+  /* A pixel speech bubble whose stepped tail points up at the ⓘ (the last thing in the heading row). */
+  .tip-text {
+    position: relative;
+    margin-block-start: 0.75rem;
+    padding: 0.875rem 1rem;
+    border: 4px solid var(--gold);
+    background: var(--panel);
+    box-shadow: 4px 4px 0 var(--bg);
+    color: var(--text);
+    font-size: 1.5rem;
+    line-height: 1.1;
+  }
+  .tip-text::before,
+  .tip-text::after {
+    content: '';
+    position: absolute;
+    inset-block-start: -20px;
+    inset-inline-end: 2px; /* tail centre sits under the icon: 22px in from the row's end */
+    inline-size: 32px;
+    block-size: 20px;
+  }
+  .tip-text::before {
+    background: var(--gold);
+    clip-path: polygon(37.5% 0, 62.5% 0, 62.5% 20%, 75% 20%, 75% 40%, 87.5% 40%, 87.5% 60%, 100% 60%, 100% 100%, 0 100%, 0 60%, 12.5% 60%, 12.5% 40%, 25% 40%, 25% 20%, 37.5% 20%);
+  }
+  .tip-text::after {
+    background: var(--panel);
+    clip-path: polygon(37.5% 20%, 62.5% 20%, 62.5% 40%, 75% 40%, 75% 60%, 87.5% 60%, 87.5% 80%, 100% 80%, 100% 100%, 0 100%, 0 80%, 12.5% 80%, 12.5% 60%, 25% 60%, 25% 40%, 37.5% 40%);
+  }
 
   /* Oracle ⇄ checklist swap: a stepped cross-fade, skipped when motion is paused (oracle.ts). */
   .oracle { view-transition-name: oracle; }
@@ -229,10 +290,22 @@
   }
   .candle-range, .candle-meta { display: block; }
 
+  /* 404: the oracle box on its own, and the lockup as a link home */
+  a.title { text-decoration: none; }
+  .realm.lost { grid-template-areas: 'oracle'; grid-template-columns: minmax(0, 1fr); min-block-size: 50dvh; align-content: center; }
+
   /* Footer */
-  .footer { font-size: 1.125rem; text-align: center; color: var(--footer); }
+  .footer { display: grid; gap: 0.5rem; font-size: 1.125rem; text-align: center; color: var(--footer); }
+  .credit a { color: var(--pink); text-decoration: underline 2px; text-underline-offset: 0.2em; }
+  .credit a:hover { color: var(--gold); }
+
+  @media (min-width: 40rem) {
+    .tip-text { justify-self: end; max-inline-size: 28rem; }
+  }
 
   @media (min-width: 64rem) {
+    .title-main { font-size: 4rem; }
+    .title-sub { font-size: 1rem; }
     .phase-label { font-size: 4rem; }
     .countdown-n { font-size: 5.5rem; }
     .oracle-heading { font-size: 2.25rem; }
