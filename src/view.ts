@@ -111,6 +111,7 @@ export function viewModel(
     'veil-sight': copy.veil.sight,
     'veil-spark': copy.veil.spark,
     'veil-cta': copy.veil.cta,
+    'veil-close': copy.veil.close,
     'veil-reopen': copy.veil.reopen,
     'grimoire-heading': copy.grimoire.heading,
     'grimoire-pre': copy.grimoire.preShadow,

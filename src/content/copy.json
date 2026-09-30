@@ -77,7 +77,8 @@
     "sight": "Our line of sight to Mercury",
     "spark": "Where Mercury appears among the stars",
     "cta": "Peer into the crystal ball",
-    "reopen": "What am I looking at?"
+    "reopen": "What am I looking at?",
+    "close": "Close"
   },
   "eggs": {
     "quest": {
