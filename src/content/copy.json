@@ -67,6 +67,18 @@
     "body": "This path isn’t in the Hidden Realm. Mercury may be retrograde, or the link may be.",
     "back": "Return to the realm"
   },
+  "veil": {
+    "title": "The orb is clouded…",
+    "why": "Mercury never actually turns around. It races the Sun on the inside track and laps Earth about every 116 days. As it overtakes us, our line of sight to it swings backward across the stars for about three weeks. That illusion is retrograde.",
+    "inside": "Inside you’ll see",
+    "sun": "The Sun",
+    "mercury": "Mercury, on its real egg-shaped orbit",
+    "earth": "Earth: that’s us",
+    "sight": "Our line of sight to Mercury",
+    "spark": "Where Mercury appears among the stars",
+    "cta": "Peer into the crystal ball",
+    "reopen": "What am I looking at?"
+  },
   "eggs": {
     "quest": {
       "title": "Quest complete",

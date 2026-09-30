@@ -20,8 +20,8 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Mercury RX, The Hidden Realm: this week's Mercury phase beside a pixel-art scrying orb.">
     <meta name="twitter:card" content="summary_large_image">
-    <!-- Applies saved (or OS) contrast and motion prefs before first paint. Same rules as src/prefs.ts. -->
-    <script>(function(){var d=document.documentElement,p={};try{p=JSON.parse(localStorage.getItem('mrx:prefs'))||{}}catch(e){}var m=function(q){return matchMedia(q).matches};if(p.hc!=null?p.hc:m('(prefers-contrast: more)'))d.dataset.theme='hc';d.dataset.motion=(p.still!=null?p.still:m('(prefers-reduced-motion: reduce)'))?'off':'on'})()</script>
+    <!-- Applies saved (or OS) contrast and motion prefs, and whether you've peered into the orb, before first paint. Same rules as src/prefs.ts and src/veil.ts. -->
+    <script>(function(){var d=document.documentElement,p={};try{p=JSON.parse(localStorage.getItem('mrx:prefs'))||{}}catch(e){}var m=function(q){return matchMedia(q).matches};if(p.hc!=null?p.hc:m('(prefers-contrast: more)'))d.dataset.theme='hc';d.dataset.motion=(p.still!=null?p.still:m('(prefers-reduced-motion: reduce)'))?'off':'on';var v='on';try{if(localStorage.getItem('mrx:peered'))v='off'}catch(e){}d.dataset.veil=v})()</script>
   </head>
   <body>
     <!-- Every data-slot / data-html is filled at build time (UTC) and again in the browser (local time). -->
@@ -74,12 +74,29 @@
 
       <section class="orb" aria-labelledby="orb-heading">
         <h2 id="orb-heading" class="visually-hidden" data-slot="orb-heading"></h2>
+        <!-- The veil: the science first. Plain text without JS; with JS it clouds the orb until you peer in (src/veil.ts). -->
+        <div class="veil">
+          <div class="veil-mist" aria-hidden="true"></div>
+          <section class="veil-card" aria-labelledby="veil-heading">
+            <h3 id="veil-heading" class="veil-title" tabindex="-1" data-slot="veil-title"></h3>
+            <p class="veil-why" data-slot="veil-why"></p>
+            <p class="label veil-inside" data-slot="veil-inside"></p>
+            <ul class="veil-legend">
+              <li><span class="sw sw-sun" aria-hidden="true"></span><span data-slot="veil-sun"></span></li>
+              <li><span class="sw sw-mercury" aria-hidden="true"></span><span data-slot="veil-mercury"></span></li>
+              <li><span class="sw sw-earth" aria-hidden="true"></span><span data-slot="veil-earth"></span></li>
+              <li><span class="sw sw-sight" aria-hidden="true"></span><span data-slot="veil-sight"></span></li>
+              <li><span class="sw sw-spark" aria-hidden="true"></span><span data-slot="veil-spark"></span></li>
+            </ul>
+            <button type="button" class="veil-cta" data-action="peer" hidden><svg class="cur" viewBox="0 0 3 5" aria-hidden="true"><path d="M0 0h1v5H0zM1 1h1v3H1zM2 2h1v1H2z"/></svg><span data-slot="veil-cta"></span></button>
+          </section>
+        </div>
         <!-- The realm gate: arch, pedestal and candles are decoration (hidden in high contrast). -->
         <div class="orb-stage">
           <svg class="gate" viewBox="0 0 24 26" aria-hidden="true"><path class="gate-rim" d="M10 0h4v1h-4zM7 1h10v1h-10zM5 2h14v1h-14zM4 3h16v1h-16zM3 4h18v1h-18zM2 5h20v2h-20zM1 7h22v3h-22zM0 10h24v16h-24z"/><path class="gate-void" transform="translate(1 1) scale(0.9167 0.96)" d="M10 0h4v1h-4zM7 1h10v1h-10zM5 2h14v1h-14zM4 3h16v1h-16zM3 4h18v1h-18zM2 5h20v2h-20zM1 7h22v3h-22zM0 10h24v16h-24z"/><path class="gate-stars" d="M6 5h.4v.4h-.4zM17 4h.4v.4h-.4zM4 12h.4v.4h-.4zM19 10h.4v.4h-.4zM12 2.4h.4v.4h-.4zM21 17h.4v.4h-.4zM3 20h.4v.4h-.4z"/></svg>
           <div class="orb-float">
             <!-- Baked at build time, re-drawn for the visitor's now, animated when motion is on (src/motion.ts). -->
-            <svg class="orb-svg" viewBox="0 0 312 312" role="img" aria-labelledby="orb-alt">
+            <svg class="orb-svg" viewBox="0 0 312 312" role="img" aria-labelledby="orb-alt" tabindex="-1">
               <title id="orb-alt">Crystal ball: Earth and Mercury both orbit the Sun. A line of sight from Earth through Mercury marks where Mercury appears against the stars; when Mercury laps Earth, that spot slides backward, which is retrograde motion.</title>
               <g class="orb-glass" transform="scale(12)">
                 <path class="orb-ball" d="M11 0h4v1h-4zM8 1h10v1H8zM6 2h14v1H6zM5 3h16v1H5zM4 4h18v1H4zM3 5h20v1H3zM2 6h22v2H2zM1 8h24v3H1zM0 11h26v4H0zM1 15h24v3H1zM2 18h22v2H2zM3 20h20v1H3zM4 21h18v1H4zM5 22h16v1H5zM6 23h14v1H6zM8 24h10v1H8zM11 25h4v1h-4z"/>
@@ -99,6 +116,7 @@
         <!-- The visible caption follows the animation's simulated date; screen readers get the real status below. -->
         <p class="orb-status label" aria-hidden="true"><span class="orb-date" data-slot="orb-date" data-orb="date"></span><span data-slot="orb-status" data-orb="status"></span></p>
         <p class="visually-hidden" data-slot="orb-status"></p>
+        <button type="button" class="veil-reopen" data-action="unpeer" hidden><span data-slot="veil-reopen"></span></button>
       </section>
 
       <section id="oracle" class="panel oracle" aria-labelledby="oracle-heading" tabindex="-1">

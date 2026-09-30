@@ -8,6 +8,7 @@
   @keyframes type-in { from { opacity: 0; } }
   @keyframes bob { 50% { translate: 0 -12px; } }
   @keyframes flame { 50% { transform: scaleY(0.8); } }
+  @keyframes lift { to { opacity: 0; } }
 
   [data-motion='on'] {
     .chip-dot { animation: blink 1s steps(1) infinite; }
@@ -27,6 +28,9 @@
     .flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flame 0.9s steps(2) infinite; }
     .d2 .flame { animation-delay: -0.3s; }
     .d3 .flame { animation-delay: -0.6s; }
+
+    /* Peering in: the mist clears in 5 steps (src/veil.ts waits the same 0.5s). */
+    &[data-veil='lifting'] .veil { animation: lift 0.5s steps(5) forwards; }
   }
 
   @media (forced-colors: none) {

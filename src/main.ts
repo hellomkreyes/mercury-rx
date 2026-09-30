@@ -6,6 +6,7 @@ import { initPrefs } from './prefs.ts';
 import { initOracle } from './oracle.ts';
 import { initMotion } from './motion.ts';
 import { initEggs } from './eggs.ts';
+import { initVeil } from './veil.ts';
 import cycles from './content/cycles.json';
 import copy from './content/copy.json';
 
@@ -13,6 +14,7 @@ const now = new Date();
 const view = viewModel(now, getPhase(now, cycles.cycles), cycles.cycles, copy);
 render(view);
 initPrefs();
+initVeil();
 const eggs = initEggs(view.phase, copy);
 initOracle(view, copy, cycles.cycles, now, eggs.quest);
 initMotion(now, copy);
