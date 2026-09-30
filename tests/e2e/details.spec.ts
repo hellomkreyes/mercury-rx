@@ -19,6 +19,11 @@ test.describe('the veil', () => {
     await button(page, copy.veil.reopen).click();
     await expect(heading).toBeFocused();
     await expect(button(page, copy.veil.reopen)).toBeHidden();
+
+    // The ✕ in the corner lifts it too.
+    await button(page, copy.veil.close).click();
+    await expect(heading).toBeHidden();
+    await expect(page.locator('.orb-svg')).toBeFocused();
   });
 
   test('holds GSAP back until you peer in', async ({ page }) => {

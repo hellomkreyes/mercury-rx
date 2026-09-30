@@ -9,18 +9,18 @@ const LIFT_MS = 500; // matches the stepped fade in motion.css
 
 export function initVeil(root: Document = document): void {
   const html = root.documentElement;
-  const peer = root.querySelector<HTMLButtonElement>('[data-action="peer"]');
+  const peers = [...root.querySelectorAll<HTMLButtonElement>('[data-action="peer"]')]; // the CTA and the ✕
   const unpeer = root.querySelector<HTMLButtonElement>('[data-action="unpeer"]');
   const orb = root.querySelector<SVGSVGElement>('.orb-svg');
   const heading = root.querySelector<HTMLElement>('#veil-heading');
-  if (!peer || !unpeer || !orb || !heading) return;
+  if (!peers.length || !unpeer || !orb || !heading) return;
 
   html.dataset.veil ??= load(PEERED_KEY, false) ? 'off' : 'on';
   const sync = () => {
     unpeer.hidden = html.dataset.veil !== 'off';
   };
 
-  peer.addEventListener('click', () => {
+  const lift = () => {
     save(PEERED_KEY, true);
     const done = () => {
       html.dataset.veil = 'off';
@@ -31,7 +31,8 @@ export function initVeil(root: Document = document): void {
       html.dataset.veil = 'lifting';
       setTimeout(done, LIFT_MS);
     } else done();
-  });
+  };
+  for (const peer of peers) peer.addEventListener('click', lift);
 
   unpeer.addEventListener('click', () => {
     html.dataset.veil = 'on';
@@ -39,6 +40,6 @@ export function initVeil(root: Document = document): void {
     heading.focus();
   });
 
-  peer.hidden = false;
+  for (const peer of peers) peer.hidden = false;
   sync();
 }
